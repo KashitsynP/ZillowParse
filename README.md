@@ -1,7 +1,6 @@
 # ZillowParse
-Test task on web scraping and data processing
 
-This is a test task that I received and completed:
+This is a task that I received and completed:
 
 1. It was necessary to parse 2 store sites and get all their addresses (https://locations.traderjoes.com/, https://www.wholefoodsmarket.com/stores/);
 2. Send a request to the zillow.com website via the API according to the criteria that are on the site when searching;
