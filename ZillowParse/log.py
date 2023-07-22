@@ -1,12 +1,12 @@
-import json
+import aiofiles
 
-def saveData(path:str, mode:str, list):
-    with open(path, mode, encoding='utf-8') as file:
-        json.dump(list, file)
-        print(f'File {path} was sucсessfully saved!')
+async def save_data(file_name, mode, data):
+    async with aiofiles.open(file_name, mode, encoding='utf-8') as file:
+        await file.write(data)
+        print(f'File {file_name} was sucсessfully saved!')
 
-def loadData(path:str):
-    with open(path, 'r') as file:
-        obj = json.load(file)
-        print(f'File {path} was successfully loaded!')
-    return obj
+
+async def load_data(filename):
+    async with aiofiles.open(filename, 'r', encoding='utf-8') as file:
+        print(f'File {filename} was successfully loaded!')
+        return await file.read()

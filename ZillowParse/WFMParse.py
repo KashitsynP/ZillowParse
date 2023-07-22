@@ -1,6 +1,7 @@
 import csv
+import asyncio
 from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut 
+from geopy.exc import GeocoderTimedOut, GeocoderUnavailable 
 import time
 from log import *
 
@@ -13,45 +14,60 @@ from log import *
 # Используя расширение Google Chrome 'Instant Data Scraper' находим все адреса магазинов и записываем в файл 'WFM_stores.csv'
 # Редактируем файл 'WFM_stores.csv' так, чтобы в нём остался только столбец с адресами
 
-# Достаём данные из файла 'WFM_stores.csv'
-with open('./DataStores/WFM_stores.csv') as file:
-    data_WFM_stores = list(csv.reader(file))
-    print('Data_WFM_stores cvs is loaded')
 
-# Приводим список адресов в читаемый вид
-WFM_stores = []
-for i in range(len(data_WFM_stores)):
-    WFM_stores.append(data_WFM_stores[i][0])
-
-# Переводим адреса в координаты используя библиотеку 'geopy'
-WFM_store_coord = []
-WFM_coord = []
-WFM_longitude = [] 
-WFM_latitude = []
-
-print('start geolocation...')
-def WFM_findGeocode(city): 
+async def WFM_findGeocode(address): 
+    geolocator = Nominatim(user_agent="Tester")
     try: 
-        geolocator = Nominatim(user_agent="Tester")
-        return geolocator.geocode(city, exactly_one=True, timeout=60) 
-    except GeocoderTimedOut: 
-        return WFM_findGeocode(city)     
-cnt = 0
-for adress in WFM_stores: 
-    cnt += 1
-    print(cnt)
-    if WFM_findGeocode(adress) != None: 
-        loc = WFM_findGeocode(adress) 
-        WFM_latitude.append(loc.latitude) 
-        WFM_longitude.append(loc.longitude) 
-    else: 
-        WFM_latitude.append(None) 
-        WFM_longitude.append(None)
-    time.sleep(2)
+        loop = asyncio.get_event_loop()
+        loc = await loop.run_in_executor(None, geolocator.geocode, address)
+        if loc:
+            return loc
+    except GeocoderTimedOut:
+        print(f"Тайм-аут геокодирования для адреса: {address}. Повторная попытка...")
+    except GeocoderUnavailable:
+            print(f"Сервер геокодирования недоступен. Повторная попытка...")
+            await asyncio.sleep(5)  # Ждем 5 секунд перед повторной попыткой
 
-# # Объединяем координаты в один список
-for i in range(len(WFM_stores)):
-    WFM_store_coord.append([WFM_stores[i], WFM_latitude[i], WFM_longitude[i]])
+async def main():
 
-# # # Сохраняем файлы с адресами и координатами
-saveData('./DataStores/WFM_stores_coord.json', 'w', WFM_store_coord)
+    # Достаём данные из файла 'WFM_stores.csv'
+    with open('./DataStores/WFM_stores.csv') as file:
+        data_WFM_stores = list(csv.reader(file))
+        print('Data_WFM_stores cvs is loaded')
+
+    # Приводим список адресов в читаемый вид
+    WFM_stores = []
+    for i in range(len(data_WFM_stores)):
+        WFM_stores.append(data_WFM_stores[i][0])
+
+    # Переводим адреса в координаты используя библиотеку 'geopy'
+    WFM_store_coord = []
+    WFM_longitude = [] 
+    WFM_latitude = []
+
+    print('start geolocation...')
+        
+    total_addresses = len(WFM_stores)
+    cnt = 0
+    for address in WFM_stores: 
+        cnt += 1
+        print(f'Обработано: {cnt} из {total_addresses}')
+        if await WFM_findGeocode(address) != None: 
+            loc = await WFM_findGeocode(address) 
+            WFM_latitude.append(loc.latitude) 
+            WFM_longitude.append(loc.longitude) 
+        else: 
+            WFM_latitude.append(None) 
+            WFM_longitude.append(None)
+        time.sleep(2)
+
+    # # Объединяем координаты в один список
+    for i in range(len(WFM_stores)):
+        WFM_store_coord.append([WFM_stores[i], WFM_latitude[i], WFM_longitude[i]])
+
+    # # # Сохраняем файлы с адресами и координатами
+    await save_data('./DataStores/WFM_stores_coord.json', 'w', WFM_store_coord)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+    

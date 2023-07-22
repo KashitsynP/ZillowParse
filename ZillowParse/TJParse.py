@@ -1,113 +1,94 @@
-import requests
+import httpx
+import asyncio
+import json
 from bs4 import BeautifulSoup
 from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut
-import time
-from log import * 
-
-"""Парсим сайт Trader Joe's"""
-
-url_tj = "https://locations.traderjoes.com/"
-
-response_tj = requests.get(url_tj)
-
-soup_tj = BeautifulSoup(response_tj.content, "lxml")
-
-locations_tj = soup_tj.findAll("a", class_="ga_w2gi_lp listitem")
+from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
+from log import *
 
 
-# Находим все ссылки на штаты, записываем в список "url_tj_state"
-url_tj_state = []
-for link in locations_tj:
-    if link.has_attr('href'):
-        url_tj_state.append(link['href'])
-print("State done!")
+async def fetch_data(url):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        return response.content
 
 
-# Находим все города и записываем в список "url_tj_city"
-url_tj_city = []
-for state in url_tj_state:
-    response_tj_state = requests.get(state)
-    soup_tj_state = BeautifulSoup(response_tj_state.content, "lxml")
-    locations_tj_state = soup_tj_state.findAll("a", class_="ga_w2gi_lp listitem")
-    for link in locations_tj_state:
-        if link.has_attr('href'):
-            url_tj_city.append(link['href'])
-print("City done!")
+async def parse_tj_stores(url_list, teg, class_):
+    data = []
+    for url in url_list:
+        response = await fetch_data(url)
+        soup = BeautifulSoup(response, "lxml")
+        locations = soup.findAll(teg, class_)
+        for link in locations:
+            if link.has_attr('href'):
+                data.append(link['href'])
+    return data
 
 
-# Находим ссылку на каждый магазин в городе и записываем в список "url_tj_stores"
-url_tj_city_stores = []
-for store in url_tj_city:
-    response_tj_store = requests.get(store)
-    soup_tj_store = BeautifulSoup(response_tj_store.text, "lxml")
-    locations_tj_store = soup_tj_store.findAll("a", class_="ga_w2gi_lp directions")
-    for link_store in locations_tj_store:
-        if link_store.has_attr('href'):
-            url_tj_city_stores.append(link_store['href'])
-print("Store done!")
+async def geocode_address(addresses):
+    geolocator = Nominatim(user_agent="Tester")
+    store_coords = []
+    cnt = 0
+    total_addresses = len(addresses)
+    for address in addresses:
+        cnt += 1
+        print(f'Обработано: {cnt} из {total_addresses}')
+        try:
+            loop = asyncio.get_event_loop()
+            loc = await loop.run_in_executor(None, geolocator.geocode, address)
+            if loc:
+                store_coords.append([address, loc.latitude, loc.longitude])
+            else:
+                store_coords.append([address, None, None])
+        except GeocoderTimedOut:
+            print(f"Тайм-аут геокодирования для адреса: {address}. Повторная попытка...")
+        except GeocoderUnavailable:
+                print(f"Сервер геокодирования недоступен. Повторная попытка...")
+                await asyncio.sleep(5)  # Ждем 5 секунд перед повторной попыткой
+
+    return store_coords
 
 
-# Создаём список с адресами магазинов
-store_tj_address = []
-for store_info in url_tj_city_stores:
-    response_tj_store_info = requests.get(store_info)
-    soup_tj_store_info = BeautifulSoup(response_tj_store_info.text, 'lxml')
-    address_tj_store = soup_tj_store_info.findAll('div', class_='addressline')
+async def main():
+    url_tj = "https://locations.traderjoes.com/"
 
-    for item in address_tj_store:
-        store_tj_address.append(item.text.split())
-print('Parsing done!')
+    response_tj = await fetch_data(url_tj)
+    soup_tj = BeautifulSoup(response_tj, "lxml")
+    locations_tj = soup_tj.findAll("a", class_="ga_w2gi_lp listitem")
 
-# Преобразуем адреса в читаемый формат
-addresses = []
-for i in range(len(store_tj_address)):
-    address = ' '.join(store_tj_address[i])
-    addresses.append(address)
+    url_tj_state = [link['href'] for link in locations_tj if link.has_attr('href')]
+    print("State done!")
 
-# Сохраняем в файле, дабы не перегружать сайт частыми запросами
-saveData('./DataStores/T_J_stores.json', 'w', addresses)
+    url_tj_city = await parse_tj_stores(url_tj_state, "a", "ga_w2gi_lp listitem")
+    print("City done!")
 
-#######################################################################################
+    url_tj_city_stores = await parse_tj_stores(url_tj_city, "a", "ga_w2gi_lp directions")
+    print("Store done!")
 
-# Загружаем файл с адресами магазинов
-tj_stores = loadData('./DataStores/T_J_stores.json')
+    store_tj_address = []
+    for store_info in url_tj_city_stores:
+        response_tj_store_info = await fetch_data(store_info)
+        soup_tj_store_info = BeautifulSoup(response_tj_store_info, 'lxml')
+        address_tj_store = soup_tj_store_info.findAll('div', class_='addressline')
+        for item in address_tj_store:
+            store_tj_address.append(item.text.split())
 
-# Убираем из списка номера телефонов (оставляем только адрес)
-adresses_TJ = []
-for i in range(len(tj_stores)):
-    adresses_TJ.append(tj_stores[i][:len(tj_stores[i])-26])
+    store_tj_address = parse_tj_stores(url_tj_city_stores, 'div', class_='addressline')
 
-# Переводим адреса в координаты используя библиотеку 'geopy'
-T_J_store_coord = []
-T_J_coord = []
-longitude = [] 
-latitude = []
+    print('Parsing done!')
 
-print('start geocoding...')
-def findGeocode(city): 
-    try: 
-        geolocator = Nominatim(user_agent="Tester") 
-        return geolocator.geocode(city, exactly_one=True, timeout=60) 
-    except GeocoderTimedOut: 
-        return findGeocode(city)  
-cnt = 0
-for i in adresses_TJ: 
-    cnt += 1
-    print(cnt)
-    if findGeocode(i) != None: 
-        loc = findGeocode(i) 
-        latitude.append(loc.latitude) 
-        longitude.append(loc.longitude) 
-    else: 
-        latitude.append(None) 
-        longitude.append(None)
-    time.sleep(1)
+    addresses = [' '.join(store_tj_address[i]) for i in range(len(store_tj_address))]
 
+    await save_data('./DataStores/T_J_stores.json', 'w', '\n'.join(addresses))
 
-# Объединяем координаты в один список
-for i in range(len(adresses_TJ)):
-    T_J_store_coord.append([adresses_TJ[i], latitude[i], longitude[i]])
+    ##################################################################################################
 
-# Сохраняем файлы с адресами и координатами
-saveData('./DataStores/T_J_stores_coord.json', 'w', T_J_store_coord)
+    tj_stores = await load_data('./DataStores/T_J_stores.json')
+    adresses_TJ = [store[:len(store) - 26] for store in tj_stores.split('\n')]
+
+    T_J_store_coord = await geocode_address(adresses_TJ)
+
+    await save_data('./DataStores/T_J_stores_coord.json', 'w', json.dumps(T_J_store_coord))
+
+if __name__ == "__main__":
+    asyncio.run(main())
