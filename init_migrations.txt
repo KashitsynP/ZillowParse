@@ -1,0 +1,52 @@
+1) В консоли: alembic init migration # инициализируем миграции (один раз) (migration - название папки) в src
+
+2) Нужно отредактировать env.py и alembic.ini (лучше вынести его в корень приложения (Только alembic.ini))
+
+В alembic.ini:
+    script_location = src/migration (т.е. изменили стандартное расположение)
+
+
+В env.py:
+    Импортируем Base (Наши метаданные) и импортируем все таблицы которые наследуются от Base
+    Например:
+        from app.database import Base, DATABASE_URL  # Наши метаданные
+        from app.hotels.models import Hotels # нужно для того чтобы Base увидел таблицу
+
+    Изменяем: target_metadata = Base.metadata # Наши метаданные
+
+    Добавляем:
+        import sys
+        from os.path import abspath, dirname
+        sys.path.insert(0, dirname(dirname(dirname(abspath(__file__))))) # нужно чтобы корректно работали импорты для алембика, ведь они на уровень выше
+
+
+    После config = context.config добавляем:
+    config.set_main_option("sqlalchemy.url", f"{settings.DATABASE_URL}?async_fallback=True") # Засетим основную опцию (из alembic.ini) // Т.к. миграции не асинхронные, нам нужно выключить асинхронность
+
+ 
+
+
+ Теперь можем произвести миграцию (Через корень проекта):
+    alembic revision --autogenerate -m "Комментарий о нашей миграции"
+
+    Увидим сообщения:
+        INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+        INFO  [alembic.runtime.migration] Will assume transactional DDL.
+        INFO  [alembic.autogenerate.compare] Detected added table 'hotels' # Создалась таблица
+ Создалась миграция:    Generating /home/ivan/Documents/Обучение/Реальная практика/Стартапы/shum_course/app/migration/versions/4ce1d6f53cd0_комментарий_о_нашей_миграции.py ...  done
+
+
+3) Далее проверяем файл нашей миграции (default значения приходится прописывать вручную в файле миграции)
+
+4) Прогоняем миграцию:
+    alembic upgrade 4ce1d6f53cd0 # Миграция до это ревизии
+    alembic upgrade head # Миграция до последней ревизии ->
+
+        INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+        INFO  [alembic.runtime.migration] Will assume transactional DDL.
+        INFO  [alembic.runtime.migration] Running upgrade  -> 4ce1d6f53cd0, Комментарий о нашей миграции
+
+
+5) Чтобы откатиться:
+    alembic downgrade -1 # На шаг назад
+ 

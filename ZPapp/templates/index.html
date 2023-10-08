@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Zillow Data Extractor</title>
+</head>
+<body>
+    <h1>FastAPI Zillow Data Extractor</h1>
+    <p>Введите параметры для запроса данных с Zillow:</p>
+    <form id="dataForm", method="post">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br><br>
+        
+        <label for="status_type">Status Type:</label>
+        <input type="text" id="status_type" name="status_type" required><br><br>
+
+        <label for="home_type">Home Type:</label>
+        <input type="text" id="home_type" name="home_type" required><br><br>
+
+        <label for="minPrice">minPrice:</label>
+        <input type="text" id="minPrice" name="minPrice" required><br><br>
+
+        <label for="maxPrice">maxPrice:</label>
+        <input type="text" id="maxPrice" name="maxPrice" required><br><br>
+
+        <label for="bathsMin ">bathsMin:</label>
+        <input type="text" id="bathsMin" name="bathsMin" required><br><br>
+
+        <label for="bathsMax">bathsMax:</label>
+        <input type="text" id="bathsMax" name="bathsMax" required><br><br>
+
+        <label for="bedsMin">bedsMin:</label>
+        <input type="text" id="bedsMin" name="bedsMin" required><br><br>
+
+        <label for="bedsMax">bedsMax:</label>
+        <input type="text" id="bedsMax" name="bedsMax" required><br><br>
+
+        <label for="sqftMin">sqftMin:</label>
+        <input type="text" id="sqftMin" name="sqftMin" required><br><br>
+
+        <label for="sqftMax">sqftMax:</label>
+        <input type="text" id="sqftMax" name="sqftMax" required><br><br>
+
+        <input type="submit" value="Извлечь данные">
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        const form = document.getElementById("dataForm");
+        const resultDiv = document.getElementById("result");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch("/fetch_and_process_data", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const data = await response.text();
+                    // Обновляем содержимое div с результатами
+                    resultDiv.innerHTML = `<p>${data}</p>`;
+                } else {
+                    resultDiv.innerHTML = "<p>Произошла ошибка при запросе данных.</p>";
+                }
+            } catch (error) {
+                console.error("Ошибка:", error);
+                resultDiv.innerHTML = "<p>Произошла ошибка при выполнении запроса.</p>";
+            }
+        });
+    </script>
+</body>
+</html>
