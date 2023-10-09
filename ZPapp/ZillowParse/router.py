@@ -88,7 +88,7 @@ async def fetch_and_process_data(
     }
 
     headers = {
-        "X-RapidAPI-Key": "73f04596b6msh78f0ebf1b9d023ap1cdeb4jsn966df12f9a8c",
+        "X-RapidAPI-Key": "YourRapidAPI-Key",
         "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com"
     }
 
@@ -113,10 +113,10 @@ async def fetch_and_process_data(
 
     # Формируем список данных в читаемом виде, рассчитываем дистанцию и определяем ближайщие магазины
     # Результат записываем в словарь
-    res_dict = {}
     list_res_dicts = []
 
     for home in data_zillow['props']:
+        res_dict = {}
         is_dist_to_WFM = False
         is_dist_to_TJ = False
 
@@ -156,17 +156,16 @@ async def fetch_and_process_data(
             res_dict['bedrooms'] = home['bedrooms']
             res_dict['bathrooms'] = home['bathrooms']
 
-            # list_res_dicts.append(res_dict)
-            res_dict.update(**res_dict)
+            list_res_dicts.append(res_dict)
 
             # Сохраняем полученные результаты в файл 'result.json'
-            try:
-                async with aiofiles.open('result.json', 'a', encoding='utf-8') as file:
-                    await file.write(json.dumps(res_dict, indent=4))
-            except Exception as e:
-                print(f'An error occurred while writing to the file: {e}')
-    print(res_dict)
+    try:
+        async with aiofiles.open('result.json', 'w', encoding='utf-8') as file:
+            await file.write(json.dumps(list_res_dicts, indent=4))
+    except Exception as e:
+        print(f'An error occurred while writing to the file: {e}')
+    # print(res_dict)
     print('Done! Save in DB successfully')
-    response_data = {"message": "Data fetched and processed successfully", "data": res_dict}
+    response_data = {"message": "Data fetched and processed successfully", "data": list_res_dicts}
     return response_data
     # return templates.TemplateResponse("index.html", {"request": request, 'message': list_res_dicts})
