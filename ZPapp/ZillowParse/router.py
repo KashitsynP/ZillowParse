@@ -1,23 +1,21 @@
-from fastapi import APIRouter, Form, Request, Response, Query # Response - ответ, который мы отправим серверу
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates 
-from pydantic import EmailStr
-from pathlib import Path
-
-from ZPapp.ZillowParse.schemas import Property
-# from ZPapp.dao import PropertyDAO
-from ZPapp.users.dependencies import Depends, get_current_user
-from ZPapp.users.schemas import Users
-
+import os
 import json
 import aiofiles
 import httpx
-import asyncio
 from geopy.distance import distance
-from ZPapp.ZillowParse.dao import PropertyDAO
-from ZPapp.ZillowParse.models import Property
+from fastapi import APIRouter, Form, Request, Response, Query # Response - ответ, который мы отправим серверу
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from pydantic import EmailStr
+from pathlib import Path
+# from ZPapp.ZillowParse.schemas import Property
+# from ZPapp.dao import PropertyDAO
+# from ZPapp.users.dependencies import Depends, get_current_user
+# from ZPapp.users.schemas import Users
+# from ZPapp.ZillowParse.dao import PropertyDAO
+# from ZPapp.ZillowParse.models import Property
 from ZPapp.ZillowParse.log import *
-import os
+from ZPapp.postgresql import get_coord_store
 
 router = APIRouter(
     prefix='', # данный префикс будет перед всеми эндпоинтами
@@ -46,17 +44,17 @@ async def fetch_zillow_data(url, headers, querystring):
 @router.post("/fetch_and_process_data", response_model=dict)
 async def fetch_and_process_data(
                                 request: Request,
-                                location: str = Form(...),
-                                status_type: str = Form(...),
-                                home_type: str = Form(...),
-                                minPrice: int = Form(...),
-                                maxPrice: int = Form(...),
-                                bathsMin: int = Form(...),
-                                bathsMax: int = Form(...),
-                                bedsMin: int = Form(...),
-                                bedsMax: int = Form(...),
-                                sqftMin: int = Form(...),
-                                sqftMax: int = Form(...),
+                                location: str = Form(),
+                                status_type: str = Form(),
+                                home_type: str = Form(),
+                                minPrice: int = Form(),
+                                maxPrice: int = Form(),
+                                bathsMin: int = Form(),
+                                bathsMax: int = Form(),
+                                bedsMin: int = Form(),
+                                bedsMax: int = Form(),
+                                sqftMin: int = Form(),
+                                sqftMax: int = Form(),
                                 ):
    
     url = "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch"
@@ -100,8 +98,10 @@ async def fetch_and_process_data(
     # ########################################################################
 
     # Выгружаем данные о магазинах
-    data_TJ = json.loads(await load_data('./ZPapp/DataStores/T_J_stores_coord.json'))
-    data_WFM = json.loads(await load_data('./ZPapp/DataStores/WFM_stores_coord.json'))
+    # data_TJ = json.loads(await load_data('./ZPapp/DataStores/T_J_stores_coord.json'))
+    data_WFM = get_coord_store('tj')
+    # data_WFM = json.loads(await load_data('./ZPapp/DataStores/WFM_stores_coord.json'))
+    data_TJ = get_coord_store('wfm')
     
 
     # Достаём данные из файла 'zillow.json'
@@ -167,5 +167,6 @@ async def fetch_and_process_data(
     # print(res_dict)
     print('Done! Save in DB successfully')
     response_data = {"message": "Data fetched and processed successfully", "data": list_res_dicts}
+    print(response_data)
     return response_data
     # return templates.TemplateResponse("index.html", {"request": request, 'message': list_res_dicts})
