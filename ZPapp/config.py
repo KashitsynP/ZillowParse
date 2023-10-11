@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     SECRET_KEY: str # JWT # bash: openssl rand -base64 32
     ALGORITHM: str  # JWT
 
+    ZILLOW_API_KEY: str
+
 # А все персональные данные храним в файле .env в корне приложения
     class Config:
         env_file = '.env'

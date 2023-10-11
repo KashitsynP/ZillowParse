@@ -42,6 +42,9 @@
         <label for="sqftMax">sqftMax:</label>
         <input type="text" id="sqftMax" name="sqftMax" required><br><br>
 
+        <label for="distance_to_stores">Distance to stores (miles):</label>
+        <input type="text" id="distance_to_stores" name="distance_to_stores" required><br><br>
+
         <input type="submit" value="Извлечь данные">
     </form>
 
@@ -61,11 +64,32 @@
                     method: "POST",
                     body: formData,
                 });
-
+                console.log(response);
                 if (response.ok) {
-                    const data = await response.text();
-                    // Обновляем содержимое div с результатами
-                    resultDiv.innerHTML = `<p>${data}</p>`;
+                    const data = await response.json();
+                    // data = JSON.stringify(data);
+                    console.log(data);
+                    // Очищаем содержимое div с результатами
+                    resultDiv.innerHTML = "";
+                    // Перебираем список словарей и отображаем данные
+            data.forEach((item) => {
+                console.log(item);
+                const itemDiv = document.createElement("div");
+                itemDiv.innerHTML = `
+                    <p>Адрес: ${item.address}</p>
+                    <p>Цена: ${item.price}$</p>
+                    <p>Тип недвижимости: ${item.propertyType}</p>
+                    <p>Количество спален: ${item.bedrooms}</p>
+                    <p>Количество ванных комнат: ${item.bathrooms}</p>
+                    <p>Жилая площадь: ${item.livingArea} кв. футов</p>
+                `;
+                if (item.imgSrc) {
+                    const img = document.createElement("img");
+                    img.src = item.imgSrc;
+                    itemDiv.appendChild(img);
+                }
+                resultDiv.appendChild(itemDiv);
+            });
                 } else {
                     resultDiv.innerHTML = "<p>Произошла ошибка при запросе данных.</p>";
                 }

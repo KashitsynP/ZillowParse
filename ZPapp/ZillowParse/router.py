@@ -16,6 +16,8 @@ from pathlib import Path
 # from ZPapp.ZillowParse.models import Property
 from ZPapp.ZillowParse.log import *
 from ZPapp.postgresql import get_coord_store
+from ZPapp.config import settings
+
 
 router = APIRouter(
     prefix='', # данный префикс будет перед всеми эндпоинтами
@@ -24,29 +26,32 @@ router = APIRouter(
 
 BASE_DIR = Path(__file__).resolve().parent
 # Создаем объект для работы с HTML-шаблонами
-# templates = Jinja2Templates(directory=str(Path(BASE_DIR, 'ZPapp/templates')))
 templates = Jinja2Templates(directory=os.path.abspath(os.path.expanduser('ZPapp/templates')))
-# templates = Jinja2Templates(directory="templates")
 
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-# @app.get("/fetch_and_process_data", response_class=HTMLResponse)
-# async def fetch_and_process_data(request: Request):
-#     return templates.TemplateResponse("index.html", {"request": request})
 
 async def fetch_zillow_data(url, headers, querystring):
     async with httpx.AsyncClient() as client:
         response = await client.get(url, headers=headers, params=querystring)
-        return response.text
+
+        if response.status_code == 200:  # Проверяем, что запрос выполнен успешно (код статуса 200)
+            response_data = response.json()
+            print('****************************************************************')
+            print(response_data)
+            print('****************************************************************')
+            print(response_data.get('props'))
+            print('****************************************************************')
+            return response_data
 
 @router.post("/fetch_and_process_data", response_model=dict)
 async def fetch_and_process_data(
                                 request: Request,
-                                location: str = Form(),
-                                status_type: str = Form(),
-                                home_type: str = Form(),
+                                location: str = Form(default ="Maiami, FL"),
+                                status_type: str = Form(default ="ForSale"),
+                                home_type: str = Form(default ="Houses"),
                                 minPrice: int = Form(),
                                 maxPrice: int = Form(),
                                 bathsMin: int = Form(),
@@ -55,6 +60,7 @@ async def fetch_and_process_data(
                                 bedsMax: int = Form(),
                                 sqftMin: int = Form(),
                                 sqftMax: int = Form(),
+                                distance_to_stores: int = Form(default=5), 
                                 ):
    
     url = "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch"
@@ -86,11 +92,14 @@ async def fetch_and_process_data(
     }
 
     headers = {
-        "X-RapidAPI-Key": "YourRapidAPI-Key",
+        "X-RapidAPI-Key": settings.ZILLOW_API_KEY,
         "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com"
     }
+    print(f'Headers: {headers}')
 
     # response_text = await fetch_zillow_data(url, headers, querystring)
+    from ZPapp.res import response_data
+    response_text = response_data
 
     # Сохраняем полученные данные в файл 'zillow.json'
     # await save_data('./ZPapp/DataStores/zillow.json', 'w', response_text)
@@ -105,17 +114,16 @@ async def fetch_and_process_data(
     
 
     # Достаём данные из файла 'zillow.json'
-    data_zillow = json.loads(await load_data('./ZPapp/DataStores/zillow.json'))
-
+    # data_zillow = json.loads(await load_data('./ZPapp/DataStores/zillow.json'))
 
     # Задаём желаемое расстояние до магазина (в милях):
-    choice_miles = 3
+    # choice_miles = distance_to_stores
 
     # Формируем список данных в читаемом виде, рассчитываем дистанцию и определяем ближайщие магазины
     # Результат записываем в словарь
     list_res_dicts = []
 
-    for home in data_zillow['props']:
+    for home in response_text['props']:
         res_dict = {}
         is_dist_to_WFM = False
         is_dist_to_TJ = False
@@ -123,13 +131,13 @@ async def fetch_and_process_data(
         # Используем модуль библиотеки geopy.distance для определения расстояния между координатами
         for item in data_WFM:
             dist_to_WFM = distance((home['latitude'], home['longitude']), (item[1], item[2])).miles
-            if dist_to_WFM <= choice_miles:
+            if dist_to_WFM <= distance_to_stores:
                 res_dict[f'Distance to wholefoodsmarkets ({item[0]})'] = f'{dist_to_WFM:.2f} miles'
                 is_dist_to_WFM = True
 
         for item in data_TJ:
             dist_to_TJ = distance((home['latitude'], home['longitude']), (item[1], item[2])).miles
-            if dist_to_TJ <= choice_miles:
+            if dist_to_TJ <= distance_to_stores:
                 res_dict[f"Distance to Trader Joe's ({item[0]})"] = f'{dist_to_TJ:.2f} miles'
                 is_dist_to_TJ = True
 
@@ -167,6 +175,6 @@ async def fetch_and_process_data(
     # print(res_dict)
     print('Done! Save in DB successfully')
     response_data = {"message": "Data fetched and processed successfully", "data": list_res_dicts}
-    print(response_data)
+    # print(response_data)
     return response_data
     # return templates.TemplateResponse("index.html", {"request": request, 'message': list_res_dicts})
