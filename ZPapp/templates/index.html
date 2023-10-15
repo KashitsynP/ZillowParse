@@ -8,7 +8,7 @@
 <body>
     <h1>FastAPI Zillow Data Extractor</h1>
     <p>Введите параметры для запроса данных с Zillow:</p>
-    <form id="dataForm", method="post">
+    <form id="dataForm" method="get">
         <label for="location">Location:</label>
         <input type="text" id="location" name="location" required><br><br>
         
@@ -44,11 +44,25 @@
 
         <label for="distance_to_stores">Distance to stores (miles):</label>
         <input type="text" id="distance_to_stores" name="distance_to_stores" required><br><br>
-
+        
         <input type="submit" value="Извлечь данные">
     </form>
-
+    
     <div id="result"></div>
+
+    <!-- <script>
+        const form = document.getElementById("dataForm");
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            let response = await fetch("/fetch_and_process_data", {
+                        method: "GET",
+                        body: formData,
+                    });
+                });
+    </script>
+    <p>{{ response_data }}</p> -->
+
 
     <script>
         const form = document.getElementById("dataForm");
@@ -64,25 +78,43 @@
                     method: "POST",
                     body: formData,
                 });
-                console.log(response);
+                // console.log(response);
                 if (response.ok) {
-                    const data = await response.json();
-                    // data = JSON.stringify(data);
-                    console.log(data);
+                    let data = await response.json();
+                    data = JSON.parse(data);
+                    // console.log(data.data);
                     // Очищаем содержимое div с результатами
                     resultDiv.innerHTML = "";
                     // Перебираем список словарей и отображаем данные
-            data.forEach((item) => {
-                console.log(item);
+            data.data.forEach((item) => {
+                // console.log(item.stores);
                 const itemDiv = document.createElement("div");
+                const storeDiv = document.createElement("div");
+                // stores = item.stores
+                // console.log(item.wfm)
+                let not_defined = 'Не найдено'
+                
                 itemDiv.innerHTML = `
-                    <p>Адрес: ${item.address}</p>
-                    <p>Цена: ${item.price}$</p>
-                    <p>Тип недвижимости: ${item.propertyType}</p>
-                    <p>Количество спален: ${item.bedrooms}</p>
-                    <p>Количество ванных комнат: ${item.bathrooms}</p>
-                    <p>Жилая площадь: ${item.livingArea} кв. футов</p>
+                <br>
+                <p>Адрес: ${item.address}</p>
+                <p>Цена: ${item.price}$</p>
+                <p>Тип недвижимости: ${item.listingStatus}</p>
+                <p>Количество спален: ${item.bedrooms}</p>
+                <p>Количество ванных комнат: ${item.bathrooms}</p>
+                <p>Жилая площадь: ${item.livingArea} кв. футов</p>
                 `;
+                item.wfm.forEach((store_wfm) => {
+                    itemDiv.innerHTML += `
+                    <p>Wholefoodsmarket: ${store_wfm}</p>
+                    `;
+                    console.log(store_wfm);
+                    console.log('********************************');
+                });
+                item.tj.forEach((store_tj) => {
+                    itemDiv.innerHTML += `
+                    <p>Trader Joe\`s${store_tj}</p>
+                    `;
+                });
                 if (item.imgSrc) {
                     const img = document.createElement("img");
                     img.src = item.imgSrc;

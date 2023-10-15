@@ -46,7 +46,7 @@ async def fetch_zillow_data(url, headers, querystring):
             print('****************************************************************')
             return response_data
 
-@router.post("/fetch_and_process_data", response_model=dict)
+@router.post("/fetch_and_process_data")
 async def fetch_and_process_data(
                                 request: Request,
                                 location: str = Form(default ="Maiami, FL"),
@@ -101,23 +101,13 @@ async def fetch_and_process_data(
     from ZPapp.res import response_data
     response_text = response_data
 
-    # Сохраняем полученные данные в файл 'zillow.json'
-    # await save_data('./ZPapp/DataStores/zillow.json', 'w', response_text)
 
     # ########################################################################
 
     # Выгружаем данные о магазинах
-    # data_TJ = json.loads(await load_data('./ZPapp/DataStores/T_J_stores_coord.json'))
     data_WFM = get_coord_store('tj')
-    # data_WFM = json.loads(await load_data('./ZPapp/DataStores/WFM_stores_coord.json'))
     data_TJ = get_coord_store('wfm')
     
-
-    # Достаём данные из файла 'zillow.json'
-    # data_zillow = json.loads(await load_data('./ZPapp/DataStores/zillow.json'))
-
-    # Задаём желаемое расстояние до магазина (в милях):
-    # choice_miles = distance_to_stores
 
     # Формируем список данных в читаемом виде, рассчитываем дистанцию и определяем ближайщие магазины
     # Результат записываем в словарь
@@ -125,6 +115,9 @@ async def fetch_and_process_data(
 
     for home in response_text['props']:
         res_dict = {}
+        stores_wfm = []
+        stores_tj = []
+        # res_dict_stores = {}
         is_dist_to_WFM = False
         is_dist_to_TJ = False
 
@@ -132,29 +125,23 @@ async def fetch_and_process_data(
         for item in data_WFM:
             dist_to_WFM = distance((home['latitude'], home['longitude']), (item[1], item[2])).miles
             if dist_to_WFM <= distance_to_stores:
-                res_dict[f'Distance to wholefoodsmarkets ({item[0]})'] = f'{dist_to_WFM:.2f} miles'
+                # res_dict[f'Wholefoodsmarket'] = f'{item[0]} - {dist_to_WFM:.2f} miles'
+                stores_wfm.append(f'{item[0]} - {dist_to_WFM:.2f} miles')
                 is_dist_to_WFM = True
+        # for k, v in stores.items():
+        res_dict['wfm'] = stores_wfm
 
         for item in data_TJ:
             dist_to_TJ = distance((home['latitude'], home['longitude']), (item[1], item[2])).miles
             if dist_to_TJ <= distance_to_stores:
-                res_dict[f"Distance to Trader Joe's ({item[0]})"] = f'{dist_to_TJ:.2f} miles'
+                stores_tj.append(f'{item[0]} - {dist_to_TJ:.2f} miles')
                 is_dist_to_TJ = True
+                # res_dict[f"tj"] = f'{item[0]} - {dist_to_TJ:.2f} miles'
+        res_dict['tj'] = stores_tj
+        
 
         # Если магазины по расстоянию подходят, формируем словарь
         if is_dist_to_WFM or is_dist_to_TJ:
-            # property_data = Property(
-            #     address=home['address'],
-            #     country=home['country'],
-            #     listingStatus=home['listingStatus'],
-            #     zpid=home['zpid'],
-            #     price=home['price'],
-            #     livingArea=home['livingArea'],
-            #     bedrooms=home['bedrooms'],
-            #     bathrooms=home['bathrooms']
-            # )
-            # print(property_data)
-            # PropertyDAO.add(property_data)
             res_dict['address'] = home['address']
             res_dict['country'] = home['country']
             res_dict['listingStatus'] = home['listingStatus']
@@ -175,6 +162,8 @@ async def fetch_and_process_data(
     # print(res_dict)
     print('Done! Save in DB successfully')
     response_data = {"message": "Data fetched and processed successfully", "data": list_res_dicts}
-    # print(response_data)
+    response_data=json.dumps(response_data)
+    print(response_data)
     return response_data
+    # return response_data
     # return templates.TemplateResponse("index.html", {"request": request, 'message': list_res_dicts})
