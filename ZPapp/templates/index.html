@@ -3,133 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- <link rel="stylesheet" href="/ZPapp/static/style.css"> -->
+    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
     <title>FastAPI Zillow Data Extractor</title>
 </head>
 <body>
     <h1>FastAPI Zillow Data Extractor</h1>
     <p>Введите параметры для запроса данных с Zillow:</p>
     <form id="dataForm" method="get">
-        <label for="location">Location:</label>
+        <label for="location">Город, штат:</label>
         <input type="text" id="location" name="location" required><br><br>
         
-        <label for="status_type">Status Type:</label>
+        <label for="status_type">Статус недвижимости (For Sail):</label>
         <input type="text" id="status_type" name="status_type" required><br><br>
 
-        <label for="home_type">Home Type:</label>
+        <label for="home_type">Тип недвижимости:</label>
         <input type="text" id="home_type" name="home_type" required><br><br>
 
-        <label for="minPrice">minPrice:</label>
+        <label for="minPrice">Цена, мин:</label>
         <input type="text" id="minPrice" name="minPrice" required><br><br>
 
-        <label for="maxPrice">maxPrice:</label>
+        <label for="maxPrice">Цена, макс:</label>
         <input type="text" id="maxPrice" name="maxPrice" required><br><br>
 
-        <label for="bathsMin ">bathsMin:</label>
+        <label for="bathsMin ">Санузел, мин:</label>
         <input type="text" id="bathsMin" name="bathsMin" required><br><br>
 
-        <label for="bathsMax">bathsMax:</label>
+        <label for="bathsMax">Санузел, макс:</label>
         <input type="text" id="bathsMax" name="bathsMax" required><br><br>
 
-        <label for="bedsMin">bedsMin:</label>
+        <label for="bedsMin">Спальни, мин:</label>
         <input type="text" id="bedsMin" name="bedsMin" required><br><br>
 
-        <label for="bedsMax">bedsMax:</label>
+        <label for="bedsMax">Спальни, макс:</label>
         <input type="text" id="bedsMax" name="bedsMax" required><br><br>
 
-        <label for="sqftMin">sqftMin:</label>
+        <label for="sqftMin">Кв.фут, мин:</label>
         <input type="text" id="sqftMin" name="sqftMin" required><br><br>
 
-        <label for="sqftMax">sqftMax:</label>
+        <label for="sqftMax">Кв.фут, макс:</label>
         <input type="text" id="sqftMax" name="sqftMax" required><br><br>
 
-        <label for="distance_to_stores">Distance to stores (miles):</label>
+        <label for="distance_to_stores">Расстояние до магазинов здорового питания (миль):</label>
         <input type="text" id="distance_to_stores" name="distance_to_stores" required><br><br>
         
-        <input type="submit" value="Извлечь данные">
+        <input type="submit" value="Найти">
     </form>
     
     <div id="result"></div>
-
-    <!-- <script>
-        const form = document.getElementById("dataForm");
-        form.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            let response = await fetch("/fetch_and_process_data", {
-                        method: "GET",
-                        body: formData,
-                    });
-                });
-    </script>
-    <p>{{ response_data }}</p> -->
-
-
-    <script>
-        const form = document.getElementById("dataForm");
-        const resultDiv = document.getElementById("result");
-
-        form.addEventListener("submit", async (event) => {
-            event.preventDefault();
-
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch("/fetch_and_process_data", {
-                    method: "POST",
-                    body: formData,
-                });
-                // console.log(response);
-                if (response.ok) {
-                    let data = await response.json();
-                    data = JSON.parse(data);
-                    // console.log(data.data);
-                    // Очищаем содержимое div с результатами
-                    resultDiv.innerHTML = "";
-                    // Перебираем список словарей и отображаем данные
-            data.data.forEach((item) => {
-                // console.log(item.stores);
-                const itemDiv = document.createElement("div");
-                const storeDiv = document.createElement("div");
-                // stores = item.stores
-                // console.log(item.wfm)
-                let not_defined = 'Не найдено'
-                
-                itemDiv.innerHTML = `
-                <br>
-                <p>Адрес: ${item.address}</p>
-                <p>Цена: ${item.price}$</p>
-                <p>Тип недвижимости: ${item.listingStatus}</p>
-                <p>Количество спален: ${item.bedrooms}</p>
-                <p>Количество ванных комнат: ${item.bathrooms}</p>
-                <p>Жилая площадь: ${item.livingArea} кв. футов</p>
-                `;
-                item.wfm.forEach((store_wfm) => {
-                    itemDiv.innerHTML += `
-                    <p>Wholefoodsmarket: ${store_wfm}</p>
-                    `;
-                    console.log(store_wfm);
-                    console.log('********************************');
-                });
-                item.tj.forEach((store_tj) => {
-                    itemDiv.innerHTML += `
-                    <p>Trader Joe\`s${store_tj}</p>
-                    `;
-                });
-                if (item.imgSrc) {
-                    const img = document.createElement("img");
-                    img.src = item.imgSrc;
-                    itemDiv.appendChild(img);
-                }
-                resultDiv.appendChild(itemDiv);
-            });
-                } else {
-                    resultDiv.innerHTML = "<p>Произошла ошибка при запросе данных.</p>";
-                }
-            } catch (error) {
-                console.error("Ошибка:", error);
-                resultDiv.innerHTML = "<p>Произошла ошибка при выполнении запроса.</p>";
-            }
-        });
-    </script>
+    <script src="{{ url_for('static', path='/scripts.js') }}"></script>
 </body>
 </html>

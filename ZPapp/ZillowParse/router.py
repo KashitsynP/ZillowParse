@@ -5,6 +5,7 @@ import httpx
 from geopy.distance import distance
 from fastapi import APIRouter, Form, Request, Response, Query # Response - ответ, который мы отправим серверу
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import EmailStr
 from pathlib import Path
@@ -27,6 +28,8 @@ router = APIRouter(
 BASE_DIR = Path(__file__).resolve().parent
 # Создаем объект для работы с HTML-шаблонами
 templates = Jinja2Templates(directory=os.path.abspath(os.path.expanduser('ZPapp/templates')))
+router.mount("/static", StaticFiles(directory="ZPapp/static"), name="static")
+
 
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -39,11 +42,6 @@ async def fetch_zillow_data(url, headers, querystring):
 
         if response.status_code == 200:  # Проверяем, что запрос выполнен успешно (код статуса 200)
             response_data = response.json()
-            print('****************************************************************')
-            print(response_data)
-            print('****************************************************************')
-            print(response_data.get('props'))
-            print('****************************************************************')
             return response_data
 
 @router.post("/fetch_and_process_data")
