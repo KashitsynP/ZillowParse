@@ -27,6 +27,7 @@ form.addEventListener("submit", async (event) => {
             <p>Количество спален: ${item.bedrooms}</p>
             <p>Количество ванных комнат: ${item.bathrooms}</p>
             <p>Жилая площадь: ${item.livingArea} кв. футов</p>
+            <p>zpid: ${item.zpid}</p>
             `;
         item.wfm.forEach((store_wfm) => {
             itemDiv.innerHTML += `

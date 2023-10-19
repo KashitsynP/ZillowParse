@@ -1,58 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <!-- <link rel="stylesheet" href="/ZPapp/static/style.css"> -->
-    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <script src="{{ url_for('static', path='/assets/js/color-modes.js') }}"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FastAPI Zillow Data Extractor</title>
-</head>
-<body>
-    <h1>FastAPI Zillow Data Extractor</h1>
-    <p>Введите параметры для запроса данных с Zillow:</p>
-    <form id="dataForm" method="get">
-        <label for="location">Город, штат:</label>
-        <input type="text" id="location" name="location" required><br><br>
-        
-        <label for="status_type">Статус недвижимости (For Sail):</label>
-        <input type="text" id="status_type" name="status_type" required><br><br>
 
-        <label for="home_type">Тип недвижимости:</label>
-        <input type="text" id="home_type" name="home_type" required><br><br>
-
-        <label for="minPrice">Цена, мин:</label>
-        <input type="text" id="minPrice" name="minPrice" required><br><br>
-
-        <label for="maxPrice">Цена, макс:</label>
-        <input type="text" id="maxPrice" name="maxPrice" required><br><br>
-
-        <label for="bathsMin ">Санузел, мин:</label>
-        <input type="text" id="bathsMin" name="bathsMin" required><br><br>
-
-        <label for="bathsMax">Санузел, макс:</label>
-        <input type="text" id="bathsMax" name="bathsMax" required><br><br>
-
-        <label for="bedsMin">Спальни, мин:</label>
-        <input type="text" id="bedsMin" name="bedsMin" required><br><br>
-
-        <label for="bedsMax">Спальни, макс:</label>
-        <input type="text" id="bedsMax" name="bedsMax" required><br><br>
-
-        <label for="sqftMin">Кв.фут, мин:</label>
-        <input type="text" id="sqftMin" name="sqftMin" required><br><br>
-
-        <label for="sqftMax">Кв.фут, макс:</label>
-        <input type="text" id="sqftMax" name="sqftMax" required><br><br>
-
-        <label for="distance_to_stores">Расстояние до магазинов здорового питания (миль):</label>
-        <input type="text" id="distance_to_stores" name="distance_to_stores" required><br><br>
-        
-        <input type="submit" value="Найти">
-    </form>
+    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     
-    <div id="result"></div>
-    <script src="{{ url_for('static', path='/scripts.js') }}"></script>
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', path='/checkout.css') }}" rel="stylesheet">
+  </head>
+  <body class="bg-body-tertiary">
+      <symbol id="check2" viewBox="0 0 16 16">
+        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+      </symbol>
+      <symbol id="circle-half" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+      </symbol>
+      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+      </symbol>
+      <symbol id="sun-fill" viewBox="0 0 16 16">
+        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+      </symbol>
+    </svg>
+
+    <nav class="navbar navbar-dark bg-dark">
+      
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Главная</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Меню</a>
+          <ul class="dropdown-menu" style="">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+<div class="container text-center">  
+
+  <main>
+
+    <div class="container text-center">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-3">
+          <a href="https://www.wholefoodsmarket.co.uk/"><img src="../static/img/wfm.png" class="img-fluid" alt=""></a>
+        </div>
+        <div class="col col-lg-3">
+          <a href="https://www.zillow.com/"><img src="{{ url_for('static', path='/img/zillow_log.jpg') }}" alt=""></a>
+          </div>
+        <div class="col col-lg-3">
+          <a href="https://www.traderjoes.com/home"><img src="../static/img/tj.png" class="img-fluid" alt=""></a>
+        </div>
+      </div>
+    </div>
+    <p class="fs-1 fw-bolder">Заполните форму и укажите расстояние в радиусе которого хотите, чтобы были магазины здорового питания</p>
+        
+    <div class="row align-items-center">
+      <div>
+        <h4 class="mb-3 fs-2">Заполните форму</h4>
+        <form class="needs-validation" novalidate id="dataForm" method="get">
+          <div class="row g-5 fs-5">
+            <div class="col-sm-5 col-md-6">
+              <label for="location" class="fw-bolder fw-bolder">Город, штат:</label>
+              <input type="text" class="form-control" id="location" name="location" placeholder="Maiami, FL" value="Maiami, FL" required><br>
+            </div>
+            <div class="col-sm-5 col-md-6">  
+              <label for="status_type" class="fw-bolder">Статус недвижимости:</label>
+              <select class="form-select"  id="status_type" name="status_type" required>
+                <option value="">Выберите</option>
+                <option>ForSail</option>
+                <option>forRent</option>
+                <option>recentlySold</option>
+              </select>
+            </div>
+            <div class="col-sm-5 col-md-6">
+              <label for="minPrice" class="fw-bolder">Цена от ($):</label>
+              <input type="text" class="form-control" id="minPrice" name="minPrice" placeholder="" value="10000" required>
+            </div>
+            <div class="col-sm-5 col-md-6">  
+              <label for="maxPrice" class="fw-bolder">Цена до ($):</label>
+              <input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="" value="500000" required>
+            </div>
+            <div class="col-sm-5 col-md-6">  
+              <label for="bathsMin" class="fw-bolder">Санузел, мин:</label>
+              <input type="text" class="form-control" id="bathsMin" name="bathsMin" placeholder="" value="1" required>
+            </div>
+            <div class="col-sm-5 col-md-6">  
+              <label for="bathsMax" class="fw-bolder">Санузел, макс:</label>
+              <input type="text" class="form-control" id="bathsMax" name="bathsMax" placeholder="" value="2" required>
+            </div>
+            <div class="col-sm-5 col-md-6">  
+              <label for="bedsMin" class="fw-bolder">Спальни, мин:</label>
+              <input type="text" class="form-control" id="bedsMin" name="bedsMin" placeholder="" value="1" required>
+            </div>
+            <div class="col-sm-5 col-md-6">  
+              <label for="bedsMax" class="fw-bolder">Спальни, макс:</label>
+              <input type="text" class="form-control" id="bedsMax" name="bedsMax" placeholder="" value="2" required>
+            </div>
+            <div class="col-sm-5 col-md-6">  
+              <label for="sqftMin" class="fw-bolder">Площадь от (кв.фут):</label>
+              <input type="text" class="form-control" id="sqftMin" name="sqftMin" placeholder="300" value="300" required>
+            </div>
+            <div class="col-sm-5 col-md-6">  
+              <label for="sqftMax" class="fw-bolder">Площадь до (кв.фут):</label>
+              <input type="text" class="form-control" id="sqftMax" name="sqftMax" placeholder="3000" value="3000" required>
+            </div>
+            <div class="col-sm-20">  
+              <label for="distance_to_stores" class="fw-bolder">Расстояние до магазинов здорового питания (миль):</label>
+              <input type="text" class="form-control" id="distance_to_stores" name="distance_to_stores" placeholder="5" value="5" required><br>
+              
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Найти</button>
+        </form>
+      </div>
+      <div class="fs-2 border rounded" id="result"></div>
+    </div>
+  </main>
+
+  <footer class="my-5 pt-5 text-body-secondary text-center text-small">
+    <p class="mb-1">&copy; 2023 Моя компания</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+<script src="{{ url_for('static', path='/assets/dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', path='/checkout.js') }}"></script>
+<script src="{{ url_for('static', path='/scripts.js') }}"></script>
 </body>
 </html>

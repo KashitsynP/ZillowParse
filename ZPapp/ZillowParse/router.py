@@ -3,12 +3,16 @@ import json
 import aiofiles
 import httpx
 from geopy.distance import distance
-from fastapi import APIRouter, Form, Request, Response, Query # Response - ответ, который мы отправим серверу
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Form, Request, status, Response, Query # Response - ответ, который мы отправим серверу
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import EmailStr
 from pathlib import Path
+
+from typing import Optional
+import urllib
+
 # from ZPapp.ZillowParse.schemas import Property
 # from ZPapp.dao import PropertyDAO
 # from ZPapp.users.dependencies import Depends, get_current_user
@@ -26,9 +30,9 @@ router = APIRouter(
 )
 
 BASE_DIR = Path(__file__).resolve().parent
+
 # Создаем объект для работы с HTML-шаблонами
-templates = Jinja2Templates(directory=os.path.abspath(os.path.expanduser('ZPapp/templates')))
-router.mount("/static", StaticFiles(directory="ZPapp/static"), name="static")
+templates = Jinja2Templates(directory="ZPapp/templates")
 
 
 @router.get("/", response_class=HTMLResponse)
@@ -47,9 +51,8 @@ async def fetch_zillow_data(url, headers, querystring):
 @router.post("/fetch_and_process_data")
 async def fetch_and_process_data(
                                 request: Request,
-                                location: str = Form(default ="Maiami, FL"),
-                                status_type: str = Form(default ="ForSale"),
-                                home_type: str = Form(default ="Houses"),
+                                location: str = Form(),
+                                status_type: str = Form(),
                                 minPrice: int = Form(),
                                 maxPrice: int = Form(),
                                 bathsMin: int = Form(),
@@ -63,22 +66,9 @@ async def fetch_and_process_data(
    
     url = "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch"
     
-    # location = "Philadelphia, PA"
-    # status_type = "ForSale"
-    # home_type = "Houses"
-    # minPrice = "10000"
-    # maxPrice = "500000"
-    # bathsMin = "2"
-    # bathsMax = "3"
-    # bedsMin = "2"
-    # bedsMax = "4"
-    # sqftMin = "600"
-    # sqftMax = "4000"
-
     querystring = {
         "location": location,
         "status_type": status_type,
-        "home_type": home_type,
         "minPrice": minPrice,
         "maxPrice": maxPrice,
         "bathsMin": bathsMin,
@@ -95,12 +85,9 @@ async def fetch_and_process_data(
     }
     print(f'Headers: {headers}')
 
-    # response_text = await fetch_zillow_data(url, headers, querystring)
-    from ZPapp.res import response_data
-    response_text = response_data
-
-
-    # ########################################################################
+    response_text = await fetch_zillow_data(url, headers, querystring)
+    # from ZPapp.res import response_data
+    # response_text = response_data
 
     # Выгружаем данные о магазинах
     data_WFM = get_coord_store('tj')
@@ -115,7 +102,6 @@ async def fetch_and_process_data(
         res_dict = {}
         stores_wfm = []
         stores_tj = []
-        # res_dict_stores = {}
         is_dist_to_WFM = False
         is_dist_to_TJ = False
 
@@ -123,10 +109,8 @@ async def fetch_and_process_data(
         for item in data_WFM:
             dist_to_WFM = distance((home['latitude'], home['longitude']), (item[1], item[2])).miles
             if dist_to_WFM <= distance_to_stores:
-                # res_dict[f'Wholefoodsmarket'] = f'{item[0]} - {dist_to_WFM:.2f} miles'
                 stores_wfm.append(f'{item[0]} - {dist_to_WFM:.2f} miles')
                 is_dist_to_WFM = True
-        # for k, v in stores.items():
         res_dict['wfm'] = stores_wfm
 
         for item in data_TJ:
@@ -134,9 +118,7 @@ async def fetch_and_process_data(
             if dist_to_TJ <= distance_to_stores:
                 stores_tj.append(f'{item[0]} - {dist_to_TJ:.2f} miles')
                 is_dist_to_TJ = True
-                # res_dict[f"tj"] = f'{item[0]} - {dist_to_TJ:.2f} miles'
         res_dict['tj'] = stores_tj
-        
 
         # Если магазины по расстоянию подходят, формируем словарь
         if is_dist_to_WFM or is_dist_to_TJ:
@@ -148,6 +130,9 @@ async def fetch_and_process_data(
             res_dict['livingArea'] = home['livingArea']
             res_dict['bedrooms'] = home['bedrooms']
             res_dict['bathrooms'] = home['bathrooms']
+            res_dict['propertyType'] = home['propertyType']
+            res_dict['detailUrl'] = home['detailUrl']
+            res_dict['imgSrc'] = home['imgSrc']
 
             list_res_dicts.append(res_dict)
 
@@ -157,11 +142,7 @@ async def fetch_and_process_data(
             await file.write(json.dumps(list_res_dicts, indent=4))
     except Exception as e:
         print(f'An error occurred while writing to the file: {e}')
-    # print(res_dict)
     print('Done! Save in DB successfully')
     response_data = {"message": "Data fetched and processed successfully", "data": list_res_dicts}
     response_data=json.dumps(response_data)
-    print(response_data)
     return response_data
-    # return response_data
-    # return templates.TemplateResponse("index.html", {"request": request, 'message': list_res_dicts})
