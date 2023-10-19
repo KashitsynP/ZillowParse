@@ -1,11 +1,82 @@
 [
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.68 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 13.37",
+            "9205 S Dixie Hwy Miami, FL 33156 - 8.96"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.76 miles",
-            "12150 Biscayne Blvd - 4.81 miles"
+            "7930 SW 104th St - 7.99",
+            "299 SE 3rd Ave - 18.37"
+        ],
+        "address": "11802 SW 210th Ter, Miami, FL 33177",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "44363913",
+        "price": 499990,
+        "livingArea": 1736,
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/11802-SW-210th-Ter-Miami-FL-33177/44363913_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/b8cef79346ef3bdc6fe3eef01141dff6-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 10.98",
+            "3191 NE 1st Ave Miami, FL 33137 - 18.64",
+            "9205 S Dixie Hwy Miami, FL 33156 - 6.45",
+            "1683 West Ave Miami Beach, FL 33139 - 19.18"
+        ],
+        "tj": [
+            "7930 SW 104th St - 5.45",
+            "299 SE 3rd Ave - 16.09"
+        ],
+        "address": "11235 SW 172nd St, Miami, FL 33157",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "2055306699",
+        "price": 280000,
+        "livingArea": 1112,
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/11235-SW-172nd-St-Miami-FL-33157/2055306699_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/99356f8bbcf54218905cbbbeeafa9e43-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 13.87",
+            "9205 S Dixie Hwy Miami, FL 33156 - 9.48"
+        ],
+        "tj": [
+            "7930 SW 104th St - 8.51",
+            "299 SE 3rd Ave - 18.83"
+        ],
+        "address": "11846 SW 220th St, Miami, FL 33170",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "2056407842",
+        "price": 389000,
+        "livingArea": 1200,
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/11846-SW-220th-St-Miami-FL-33170/2056407842_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/f845be33ee44b2d62692a0ec1109f269-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 7.83",
+            "2296 S University Dr Davie, FL 33324 - 17.76",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.68",
+            "9205 S Dixie Hwy Miami, FL 33156 - 12.04",
+            "1683 West Ave Miami Beach, FL 33139 - 5.63",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.02"
+        ],
+        "tj": [
+            "7930 SW 104th St - 13.02",
+            "299 SE 3rd Ave - 4.76",
+            "12150 Biscayne Blvd - 4.81"
         ],
         "address": "1231 NW 68th St, Miami, FL 33147",
         "country": "USA",
@@ -21,10 +92,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 2.42 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 5.68",
+            "2296 S University Dr Davie, FL 33324 - 19.78",
+            "3191 NE 1st Ave Miami, FL 33137 - 2.42",
+            "9205 S Dixie Hwy Miami, FL 33156 - 9.96",
+            "1683 West Ave Miami Beach, FL 33139 - 5.36",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 14.70"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.30 miles"
+            "7930 SW 104th St - 10.95",
+            "299 SE 3rd Ave - 3.30",
+            "12150 Biscayne Blvd - 6.79"
         ],
         "address": "1842 NW 33rd St, Miami, FL 33142",
         "country": "USA",
@@ -40,10 +118,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.57 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 7.15",
+            "2296 S University Dr Davie, FL 33324 - 18.44",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.57",
+            "9205 S Dixie Hwy Miami, FL 33156 - 11.39",
+            "1683 West Ave Miami Beach, FL 33139 - 5.36",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.61"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.17 miles"
+            "7930 SW 104th St - 12.38",
+            "299 SE 3rd Ave - 4.17",
+            "12150 Biscayne Blvd - 5.39"
         ],
         "address": "1334 NW 56th St, Miami, FL 33142",
         "country": "USA",
@@ -58,9 +143,15 @@
         "imgSrc": "https://photos.zillowstatic.com/fp/fafc961c0b09f1610baad958893ffd03-p_e.jpg"
     },
     {
-        "wfm": [],
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 10.34",
+            "3191 NE 1st Ave Miami, FL 33137 - 18.05",
+            "9205 S Dixie Hwy Miami, FL 33156 - 5.90",
+            "1683 West Ave Miami Beach, FL 33139 - 18.42"
+        ],
         "tj": [
-            "7930 SW 104th St - 4.93 miles"
+            "7930 SW 104th St - 4.93",
+            "299 SE 3rd Ave - 15.38"
         ],
         "address": "10253 SW 173rd St, Miami, FL 33157",
         "country": "USA",
@@ -76,10 +167,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.78 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 7.27",
+            "2296 S University Dr Davie, FL 33324 - 18.23",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.78",
+            "9205 S Dixie Hwy Miami, FL 33156 - 11.47",
+            "1683 West Ave Miami Beach, FL 33139 - 5.61",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.35"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.42 miles"
+            "7930 SW 104th St - 12.45",
+            "299 SE 3rd Ave - 4.42",
+            "12150 Biscayne Blvd - 5.36"
         ],
         "address": "1460 NW 59th St, Miami, FL 33142",
         "country": "USA",
@@ -95,11 +193,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.29 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 7.91",
+            "2296 S University Dr Davie, FL 33324 - 17.88",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.29",
+            "9205 S Dixie Hwy Miami, FL 33156 - 12.19",
+            "1683 West Ave Miami Beach, FL 33139 - 5.24",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.27"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.56 miles",
-            "12150 Biscayne Blvd - 4.58 miles"
+            "7930 SW 104th St - 13.18",
+            "299 SE 3rd Ave - 4.56",
+            "12150 Biscayne Blvd - 4.58"
         ],
         "address": "800 NW 67th St, Miami, FL 33150",
         "country": "USA",
@@ -115,11 +219,16 @@
     },
     {
         "wfm": [
-            "211 S. Dixie Highway Coral Gables, FL 33133 - 3.71 miles",
-            "3191 NE 1st Ave Miami, FL 33137 - 4.57 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 3.71",
+            "3191 NE 1st Ave Miami, FL 33137 - 4.57",
+            "9205 S Dixie Hwy Miami, FL 33156 - 7.79",
+            "1683 West Ave Miami Beach, FL 33139 - 6.75",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 15.86"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.83 miles"
+            "7930 SW 104th St - 8.77",
+            "299 SE 3rd Ave - 3.83",
+            "12150 Biscayne Blvd - 8.98"
         ],
         "address": "1037 NW 33rd Ave, Miami, FL 33125",
         "country": "USA",
@@ -135,11 +244,16 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 2.07 miles",
-            "1683 West Ave Miami Beach, FL 33139 - 4.42 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 5.66",
+            "3191 NE 1st Ave Miami, FL 33137 - 2.07",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.12",
+            "1683 West Ave Miami Beach, FL 33139 - 4.42",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 15.44"
         ],
         "tj": [
-            "299 SE 3rd Ave - 2.39 miles"
+            "7930 SW 104th St - 11.12",
+            "299 SE 3rd Ave - 2.39",
+            "12150 Biscayne Blvd - 6.72"
         ],
         "address": "1062 NW 25th St, Miami, FL 33127",
         "country": "USA",
@@ -154,9 +268,36 @@
         "imgSrc": "https://photos.zillowstatic.com/fp/5ebc0c89874ed1fd65397552f53dfaf1-p_e.jpg"
     },
     {
-        "wfm": [],
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 13.64",
+            "9205 S Dixie Hwy Miami, FL 33156 - 9.22"
+        ],
         "tj": [
-            "7930 SW 104th St - 4.10 miles"
+            "7930 SW 104th St - 8.24",
+            "299 SE 3rd Ave - 18.63"
+        ],
+        "address": "21420 SW 119th Ave, Miami, FL 33177",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "44362262",
+        "price": 360000,
+        "livingArea": 825,
+        "bedrooms": 2,
+        "bathrooms": 1,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/21420-SW-119th-Ave-Miami-FL-33177/44362262_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/ceb6cfe252248ced2cda21172d638a90-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 9.67",
+            "3191 NE 1st Ave Miami, FL 33137 - 17.25",
+            "9205 S Dixie Hwy Miami, FL 33156 - 5.10",
+            "1683 West Ave Miami Beach, FL 33139 - 17.99"
+        ],
+        "tj": [
+            "7930 SW 104th St - 4.10",
+            "299 SE 3rd Ave - 14.85"
         ],
         "address": "14701 Polk St, Miami, FL 33176",
         "country": "USA",
@@ -172,11 +313,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.57 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 7.79",
+            "2296 S University Dr Davie, FL 33324 - 17.85",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.57",
+            "9205 S Dixie Hwy Miami, FL 33156 - 12.02",
+            "1683 West Ave Miami Beach, FL 33139 - 5.51",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.13"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.66 miles",
-            "12150 Biscayne Blvd - 4.80 miles"
+            "7930 SW 104th St - 13.00",
+            "299 SE 3rd Ave - 4.66",
+            "12150 Biscayne Blvd - 4.80"
         ],
         "address": "1174 NW 67th St, Miami, FL 33150",
         "country": "USA",
@@ -192,11 +339,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.24 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 8.19",
+            "2296 S University Dr Davie, FL 33324 - 17.72",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.24",
+            "9205 S Dixie Hwy Miami, FL 33156 - 12.49",
+            "1683 West Ave Miami Beach, FL 33139 - 5.16",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.22"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.69 miles",
-            "12150 Biscayne Blvd - 4.28 miles"
+            "7930 SW 104th St - 13.47",
+            "299 SE 3rd Ave - 4.69",
+            "12150 Biscayne Blvd - 4.28"
         ],
         "address": "6945 NW 6th Ave, Miami, FL 33150",
         "country": "USA",
@@ -212,10 +365,61 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 2.91 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 9.84",
+            "3191 NE 1st Ave Miami, FL 33137 - 15.59",
+            "9205 S Dixie Hwy Miami, FL 33156 - 6.89",
+            "1683 West Ave Miami Beach, FL 33139 - 17.75"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.45 miles"
+            "7930 SW 104th St - 6.61",
+            "299 SE 3rd Ave - 14.55",
+            "12150 Biscayne Blvd - 19.41"
+        ],
+        "address": "4905 SW 137th Ct, Miami, FL 33175",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "44246447",
+        "price": 450000,
+        "livingArea": 835,
+        "bedrooms": 2,
+        "bathrooms": 1,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/4905-SW-137th-Ct-Miami-FL-33175/44246447_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/df9378cc9701d41b591355697de70d05-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 13.45",
+            "9205 S Dixie Hwy Miami, FL 33156 - 9.01"
+        ],
+        "tj": [
+            "7930 SW 104th St - 8.03",
+            "299 SE 3rd Ave - 18.46"
+        ],
+        "address": "11989 SW 210th St, Miami, FL 33177",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "44364136",
+        "price": 499000,
+        "livingArea": 1501,
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/11989-SW-210th-St-Miami-FL-33177/44364136_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/892a350146877a56d235629f09c317a2-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 5.31",
+            "3191 NE 1st Ave Miami, FL 33137 - 2.91",
+            "9205 S Dixie Hwy Miami, FL 33156 - 9.52",
+            "1683 West Ave Miami Beach, FL 33139 - 5.74",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 14.79"
+        ],
+        "tj": [
+            "7930 SW 104th St - 10.51",
+            "299 SE 3rd Ave - 3.45",
+            "12150 Biscayne Blvd - 7.24"
         ],
         "address": "2847 NW 23rd Ave, Miami, FL 33142",
         "country": "USA",
@@ -231,11 +435,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.57 miles",
-            "1683 West Ave Miami Beach, FL 33139 - 4.72 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 6.32",
+            "2296 S University Dr Davie, FL 33324 - 19.47",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.57",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.70",
+            "1683 West Ave Miami Beach, FL 33139 - 4.72",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 14.64"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.14 miles"
+            "7930 SW 104th St - 11.69",
+            "299 SE 3rd Ave - 3.14",
+            "12150 Biscayne Blvd - 6.07"
         ],
         "address": "1132 NW 39th St, Miami, FL 33127",
         "country": "USA",
@@ -251,10 +461,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.59 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 7.36",
+            "2296 S University Dr Davie, FL 33324 - 18.22",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.59",
+            "9205 S Dixie Hwy Miami, FL 33156 - 11.60",
+            "1683 West Ave Miami Beach, FL 33139 - 5.45",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.41"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.37 miles"
+            "7930 SW 104th St - 12.58",
+            "299 SE 3rd Ave - 4.37",
+            "12150 Biscayne Blvd - 5.21"
         ],
         "address": "5900 NW 13th Ave, Miami, FL 33142",
         "country": "USA",
@@ -270,11 +487,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.89 miles",
-            "1683 West Ave Miami Beach, FL 33139 - 4.55 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 5.88",
+            "2296 S University Dr Davie, FL 33324 - 19.99",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.89",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.31",
+            "1683 West Ave Miami Beach, FL 33139 - 4.55",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 15.13"
         ],
         "tj": [
-            "299 SE 3rd Ave - 2.68 miles"
+            "7930 SW 104th St - 11.30",
+            "299 SE 3rd Ave - 2.68",
+            "12150 Biscayne Blvd - 6.50"
         ],
         "address": "1121 NW 29th Ter, Miami, FL 33127",
         "country": "USA",
@@ -290,10 +513,41 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 2.03 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 9.23",
+            "3191 NE 1st Ave Miami, FL 33137 - 15.17",
+            "9205 S Dixie Hwy Miami, FL 33156 - 6.20",
+            "1683 West Ave Miami Beach, FL 33139 - 17.22"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.94 miles"
+            "7930 SW 104th St - 5.92",
+            "299 SE 3rd Ave - 14.01",
+            "12150 Biscayne Blvd - 19.07"
+        ],
+        "address": "13015 SW 54th St, Miami, FL 33175",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "44250417",
+        "price": 480000,
+        "livingArea": 1015,
+        "bedrooms": 3,
+        "bathrooms": 1,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/13015-SW-54th-St-Miami-FL-33175/44250417_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/acae9859b10a5d50c1221c724959a7ff-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 7.75",
+            "2296 S University Dr Davie, FL 33324 - 17.69",
+            "3191 NE 1st Ave Miami, FL 33137 - 2.03",
+            "9205 S Dixie Hwy Miami, FL 33156 - 11.89",
+            "1683 West Ave Miami Beach, FL 33139 - 5.95",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 12.83"
+        ],
+        "tj": [
+            "7930 SW 104th St - 12.86",
+            "299 SE 3rd Ave - 4.94",
+            "12150 Biscayne Blvd - 5.05"
         ],
         "address": "1520 NW 69th St, Miami, FL 33147",
         "country": "USA",
@@ -309,10 +563,16 @@
     },
     {
         "wfm": [
-            "9205 S Dixie Hwy Miami, FL 33156 - 3.15 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 5.32",
+            "3191 NE 1st Ave Miami, FL 33137 - 11.74",
+            "9205 S Dixie Hwy Miami, FL 33156 - 3.15",
+            "1683 West Ave Miami Beach, FL 33139 - 13.43",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 19.73"
         ],
         "tj": [
-            "7930 SW 104th St - 3.49 miles"
+            "7930 SW 104th St - 3.49",
+            "299 SE 3rd Ave - 10.20",
+            "12150 Biscayne Blvd - 15.96"
         ],
         "address": "5045 SW 92nd Ave, Miami, FL 33165",
         "country": "USA",
@@ -328,10 +588,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.57 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 6.89",
+            "2296 S University Dr Davie, FL 33324 - 18.71",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.57",
+            "9205 S Dixie Hwy Miami, FL 33156 - 11.17",
+            "1683 West Ave Miami Beach, FL 33139 - 5.23",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.86"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.92 miles"
+            "7930 SW 104th St - 12.15",
+            "299 SE 3rd Ave - 3.92",
+            "12150 Biscayne Blvd - 5.60"
         ],
         "address": "1321 NW 51st Ter, Miami, FL 33142",
         "country": "USA",
@@ -347,11 +614,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.22 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 8.10",
+            "2296 S University Dr Davie, FL 33324 - 17.78",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.22",
+            "9205 S Dixie Hwy Miami, FL 33156 - 12.40",
+            "1683 West Ave Miami Beach, FL 33139 - 5.16",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.26"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.63 miles",
-            "12150 Biscayne Blvd - 4.37 miles"
+            "7930 SW 104th St - 13.39",
+            "299 SE 3rd Ave - 4.63",
+            "12150 Biscayne Blvd - 4.37"
         ],
         "address": "6845 NW 6th Ct, Miami, FL 33150",
         "country": "USA",
@@ -367,10 +640,41 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.83 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 10.26",
+            "3191 NE 1st Ave Miami, FL 33137 - 16.09",
+            "9205 S Dixie Hwy Miami, FL 33156 - 7.17",
+            "1683 West Ave Miami Beach, FL 33139 - 18.22"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.30 miles"
+            "7930 SW 104th St - 6.83",
+            "299 SE 3rd Ave - 15.01",
+            "12150 Biscayne Blvd - 19.91"
+        ],
+        "address": "5318 SW 141st Ave, Miami, FL 33175",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "44247067",
+        "price": 454900,
+        "livingArea": 1030,
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/5318-SW-141st-Ave-Miami-FL-33175/44247067_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/74967e1334934483c076cd9ca05d4689-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 6.19",
+            "2296 S University Dr Davie, FL 33324 - 19.45",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.83",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.52",
+            "1683 West Ave Miami Beach, FL 33139 - 5.00",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 14.53"
+        ],
+        "tj": [
+            "7930 SW 104th St - 11.51",
+            "299 SE 3rd Ave - 3.30",
+            "12150 Biscayne Blvd - 6.23"
         ],
         "address": "1370 NW 39th St, Miami, FL 33142",
         "country": "USA",
@@ -386,10 +690,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 2.05 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 6.32",
+            "2296 S University Dr Davie, FL 33324 - 19.14",
+            "3191 NE 1st Ave Miami, FL 33137 - 2.05",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.56",
+            "1683 West Ave Miami Beach, FL 33139 - 5.43",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 14.14"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.73 miles"
+            "7930 SW 104th St - 11.55",
+            "299 SE 3rd Ave - 3.73",
+            "12150 Biscayne Blvd - 6.21"
         ],
         "address": "1741 NW 44th St, Miami, FL 33142",
         "country": "USA",
@@ -405,12 +716,16 @@
     },
     {
         "wfm": [
-            "211 S. Dixie Highway Coral Gables, FL 33133 - 3.70 miles",
-            "3191 NE 1st Ave Miami, FL 33137 - 4.19 miles",
-            "1683 West Ave Miami Beach, FL 33139 - 4.98 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 3.70",
+            "3191 NE 1st Ave Miami, FL 33137 - 4.19",
+            "9205 S Dixie Hwy Miami, FL 33156 - 8.27",
+            "1683 West Ave Miami Beach, FL 33139 - 4.98",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 17.37"
         ],
         "tj": [
-            "299 SE 3rd Ave - 1.77 miles"
+            "7930 SW 104th St - 9.26",
+            "299 SE 3rd Ave - 1.77",
+            "12150 Biscayne Blvd - 8.87"
         ],
         "address": "517 SW 14th Ave, Miami, FL 33135",
         "country": "USA",
@@ -426,11 +741,16 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.78 miles",
-            "1683 West Ave Miami Beach, FL 33139 - 4.38 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 5.97",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.78",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.41",
+            "1683 West Ave Miami Beach, FL 33139 - 4.38",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 15.20"
         ],
         "tj": [
-            "299 SE 3rd Ave - 2.59 miles"
+            "7930 SW 104th St - 11.41",
+            "299 SE 3rd Ave - 2.59",
+            "12150 Biscayne Blvd - 6.41"
         ],
         "address": "919 NW 29th Ter, Miami, FL 33127",
         "country": "USA",
@@ -446,10 +766,59 @@
     },
     {
         "wfm": [
-            "211 S. Dixie Highway Coral Gables, FL 33133 - 2.80 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 13.76",
+            "9205 S Dixie Hwy Miami, FL 33156 - 9.40"
         ],
         "tj": [
-            "299 SE 3rd Ave - 2.42 miles"
+            "7930 SW 104th St - 8.44",
+            "299 SE 3rd Ave - 18.70"
+        ],
+        "address": "22027 SW 116th Ave, Miami, FL 33170",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "2109160797",
+        "price": 449900,
+        "livingArea": 1039,
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/22027-SW-116th-Ave-Miami-FL-33170/2109160797_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/6dd413a22c1e6bdcacc5db7cd6fe7930-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 11.80",
+            "3191 NE 1st Ave Miami, FL 33137 - 19.19",
+            "9205 S Dixie Hwy Miami, FL 33156 - 7.25"
+        ],
+        "tj": [
+            "7930 SW 104th St - 6.29",
+            "299 SE 3rd Ave - 17.01"
+        ],
+        "address": "13350 SW 152nd St APT 2801, Miami, FL 33177",
+        "country": "USA",
+        "listingStatus": "FOR_SALE",
+        "zpid": "51621729",
+        "price": 409000,
+        "livingArea": 1130,
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "propertyType": "SINGLE_FAMILY",
+        "detailUrl": "/homedetails/13350-SW-152nd-St-APT-2801-Miami-FL-33177/51621729_zpid/",
+        "imgSrc": "https://photos.zillowstatic.com/fp/d7e66f253d197942de090eadff895a4c-p_e.jpg"
+    },
+    {
+        "wfm": [
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 2.80",
+            "3191 NE 1st Ave Miami, FL 33137 - 5.33",
+            "9205 S Dixie Hwy Miami, FL 33156 - 7.36",
+            "1683 West Ave Miami Beach, FL 33139 - 5.63",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 18.38"
+        ],
+        "tj": [
+            "7930 SW 104th St - 8.34",
+            "299 SE 3rd Ave - 2.42",
+            "12150 Biscayne Blvd - 10.00"
         ],
         "address": "2150 SW 16th Ave, Miami, FL 33145",
         "country": "USA",
@@ -465,11 +834,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.51 miles",
-            "1683 West Ave Miami Beach, FL 33139 - 4.40 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 6.26",
+            "2296 S University Dr Davie, FL 33324 - 19.72",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.51",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.69",
+            "1683 West Ave Miami Beach, FL 33139 - 4.40",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 14.95"
         ],
         "tj": [
-            "299 SE 3rd Ave - 2.83 miles"
+            "7930 SW 104th St - 11.68",
+            "299 SE 3rd Ave - 2.83",
+            "12150 Biscayne Blvd - 6.12"
         ],
         "address": "3427 NW 9th Ave, Miami, FL 33127",
         "country": "USA",
@@ -485,10 +860,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 2.03 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 6.47",
+            "2296 S University Dr Davie, FL 33324 - 18.97",
+            "3191 NE 1st Ave Miami, FL 33137 - 2.03",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.70",
+            "1683 West Ave Miami Beach, FL 33139 - 5.51",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 13.97"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.88 miles"
+            "7930 SW 104th St - 11.68",
+            "299 SE 3rd Ave - 3.88",
+            "12150 Biscayne Blvd - 6.09"
         ],
         "address": "1758 NW 47th Ter, Miami, FL 33142",
         "country": "USA",
@@ -504,10 +886,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 2.06 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 7.74",
+            "2296 S University Dr Davie, FL 33324 - 17.69",
+            "3191 NE 1st Ave Miami, FL 33137 - 2.06",
+            "9205 S Dixie Hwy Miami, FL 33156 - 11.87",
+            "1683 West Ave Miami Beach, FL 33139 - 5.98",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 12.82"
         ],
         "tj": [
-            "299 SE 3rd Ave - 4.95 miles"
+            "7930 SW 104th St - 12.84",
+            "299 SE 3rd Ave - 4.95",
+            "12150 Biscayne Blvd - 5.07"
         ],
         "address": "1546 NW 69th St, Miami, FL 33147",
         "country": "USA",
@@ -523,10 +912,16 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 2.67 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 5.22",
+            "3191 NE 1st Ave Miami, FL 33137 - 2.67",
+            "9205 S Dixie Hwy Miami, FL 33156 - 9.57",
+            "1683 West Ave Miami Beach, FL 33139 - 5.21",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 15.22"
         ],
         "tj": [
-            "299 SE 3rd Ave - 2.88 miles"
+            "7930 SW 104th St - 10.56",
+            "299 SE 3rd Ave - 2.88",
+            "12150 Biscayne Blvd - 7.19"
         ],
         "address": "2323 NW 18th Ave, Miami, FL 33142",
         "country": "USA",
@@ -542,11 +937,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.29 miles",
-            "1683 West Ave Miami Beach, FL 33139 - 4.62 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 6.62",
+            "2296 S University Dr Davie, FL 33324 - 19.25",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.29",
+            "9205 S Dixie Hwy Miami, FL 33156 - 11.00",
+            "1683 West Ave Miami Beach, FL 33139 - 4.62",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 14.50"
         ],
         "tj": [
-            "299 SE 3rd Ave - 3.28 miles"
+            "7930 SW 104th St - 12.00",
+            "299 SE 3rd Ave - 3.28",
+            "12150 Biscayne Blvd - 5.76"
         ],
         "address": "4325 NW 10th Ave, Miami, FL 33127",
         "country": "USA",
@@ -562,11 +963,17 @@
     },
     {
         "wfm": [
-            "3191 NE 1st Ave Miami, FL 33137 - 1.78 miles",
-            "1683 West Ave Miami Beach, FL 33139 - 4.46 miles"
+            "211 S. Dixie Highway Coral Gables, FL 33133 - 5.98",
+            "2296 S University Dr Davie, FL 33324 - 19.95",
+            "3191 NE 1st Ave Miami, FL 33137 - 1.78",
+            "9205 S Dixie Hwy Miami, FL 33156 - 10.41",
+            "1683 West Ave Miami Beach, FL 33139 - 4.46",
+            "11960 Pines Blvd Pembroke Pines, FL 33026 - 15.12"
         ],
         "tj": [
-            "299 SE 3rd Ave - 2.67 miles"
+            "7930 SW 104th St - 11.41",
+            "299 SE 3rd Ave - 2.67",
+            "12150 Biscayne Blvd - 6.40"
         ],
         "address": "1037 NW 30th St, Miami, FL 33127",
         "country": "USA",

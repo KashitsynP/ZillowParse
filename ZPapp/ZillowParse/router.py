@@ -1,27 +1,14 @@
-import os
-import json
-import aiofiles
-import httpx
 from geopy.distance import distance
-from fastapi import APIRouter, Form, Request, status, Response, Query # Response - ответ, который мы отправим серверу
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi import APIRouter, Form, Request
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from pydantic import EmailStr
+import httpx
 from pathlib import Path
+import json
 
-from typing import Optional
-import urllib
-
-# from ZPapp.ZillowParse.schemas import Property
-# from ZPapp.dao import PropertyDAO
-# from ZPapp.users.dependencies import Depends, get_current_user
-# from ZPapp.users.schemas import Users
-# from ZPapp.ZillowParse.dao import PropertyDAO
-# from ZPapp.ZillowParse.models import Property
-from ZPapp.ZillowParse.log import *
-from ZPapp.postgresql import get_coord_store
 from ZPapp.config import settings
+from ZPapp.postgresql import get_coord_store
+from ZPapp.ZillowParse.log import *
 
 
 router = APIRouter(
@@ -61,7 +48,7 @@ async def fetch_and_process_data(
                                 bedsMax: int = Form(),
                                 sqftMin: int = Form(),
                                 sqftMax: int = Form(),
-                                distance_to_stores: int = Form(default=5), 
+                                distance_to_stores: int = Form(), 
                                 ):
    
     url = "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch"
@@ -83,17 +70,15 @@ async def fetch_and_process_data(
         "X-RapidAPI-Key": settings.ZILLOW_API_KEY,
         "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com"
     }
-    print(f'Headers: {headers}')
 
-    response_text = await fetch_zillow_data(url, headers, querystring)
-    # from ZPapp.res import response_data
-    # response_text = response_data
+    # response_text = await fetch_zillow_data(url, headers, querystring)
+    from ZPapp.res import response_data
+    response_text = response_data
 
     # Выгружаем данные о магазинах
     data_WFM = get_coord_store('tj')
     data_TJ = get_coord_store('wfm')
     
-
     # Формируем список данных в читаемом виде, рассчитываем дистанцию и определяем ближайщие магазины
     # Результат записываем в словарь
     list_res_dicts = []
@@ -109,40 +94,33 @@ async def fetch_and_process_data(
         for item in data_WFM:
             dist_to_WFM = distance((home['latitude'], home['longitude']), (item[1], item[2])).miles
             if dist_to_WFM <= distance_to_stores:
-                stores_wfm.append(f'{item[0]} - {dist_to_WFM:.2f} miles')
+                stores_wfm.append(f'{item[0]} - {dist_to_WFM:.2f}')
                 is_dist_to_WFM = True
         res_dict['wfm'] = stores_wfm
 
         for item in data_TJ:
             dist_to_TJ = distance((home['latitude'], home['longitude']), (item[1], item[2])).miles
             if dist_to_TJ <= distance_to_stores:
-                stores_tj.append(f'{item[0]} - {dist_to_TJ:.2f} miles')
+                stores_tj.append(f'{item[0]} - {dist_to_TJ:.2f}')
                 is_dist_to_TJ = True
         res_dict['tj'] = stores_tj
 
         # Если магазины по расстоянию подходят, формируем словарь
         if is_dist_to_WFM or is_dist_to_TJ:
-            res_dict['address'] = home['address']
-            res_dict['country'] = home['country']
-            res_dict['listingStatus'] = home['listingStatus']
-            res_dict['zpid'] = home['zpid']
-            res_dict['price'] = home['price']
-            res_dict['livingArea'] = home['livingArea']
-            res_dict['bedrooms'] = home['bedrooms']
-            res_dict['bathrooms'] = home['bathrooms']
-            res_dict['propertyType'] = home['propertyType']
-            res_dict['detailUrl'] = home['detailUrl']
-            res_dict['imgSrc'] = home['imgSrc']
+            res_dict['address']:str = home['address']
+            res_dict['country']:str = home['country']
+            res_dict['listingStatus']:str = home['listingStatus']
+            res_dict['zpid']:int = home['zpid']
+            res_dict['price']:int = home['price']
+            res_dict['livingArea']:int = home['livingArea']
+            res_dict['bedrooms']:int = home['bedrooms']
+            res_dict['bathrooms']:int = home['bathrooms']
+            res_dict['propertyType']:str = home['propertyType']
+            res_dict['detailUrl']:str = home['detailUrl']
+            res_dict['imgSrc']:str = home['imgSrc']
 
             list_res_dicts.append(res_dict)
 
-            # Сохраняем полученные результаты в файл 'result.json'
-    try:
-        async with aiofiles.open('result.json', 'w', encoding='utf-8') as file:
-            await file.write(json.dumps(list_res_dicts, indent=4))
-    except Exception as e:
-        print(f'An error occurred while writing to the file: {e}')
-    print('Done! Save in DB successfully')
     response_data = {"message": "Data fetched and processed successfully", "data": list_res_dicts}
     response_data=json.dumps(response_data)
     return response_data

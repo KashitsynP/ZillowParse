@@ -24,25 +24,26 @@ form.addEventListener("submit", async (event) => {
             <p>Адрес: ${item.address}</p>
             <p>Цена: ${item.price}$</p>
             <p>Тип недвижимости: ${item.listingStatus}</p>
-            <p>Количество спален: ${item.bedrooms}</p>
-            <p>Количество ванных комнат: ${item.bathrooms}</p>
+            <p>Спальни: ${item.bedrooms}</p>
+            <p>Сан.узлы: ${item.bathrooms}</p>
             <p>Жилая площадь: ${item.livingArea} кв. футов</p>
             <p>zpid: ${item.zpid}</p>
             `;
         item.wfm.forEach((store_wfm) => {
             itemDiv.innerHTML += `
-            <p>Wholefoodsmarket: ${store_wfm}</p>
+            <p>Wholefoodsmarket: ${store_wfm} миль</p>
             `;
         });
         item.tj.forEach((store_tj) => {
             itemDiv.innerHTML += `
-            <p>Trader Joe\`s: ${store_tj}</p>
+            <p>Trader Joe\`s: ${store_tj} миль</p>
             `;
         });
         if (item.imgSrc) {
             const img = document.createElement("img");
             img.src = item.imgSrc;
             itemDiv.appendChild(img);
+            itemDiv.innerHTML += `<hr class="my-5">`
         }
         resultDiv.appendChild(itemDiv);
     });

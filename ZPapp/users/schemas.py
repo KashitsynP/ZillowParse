@@ -35,6 +35,3 @@ class SUserAuth(BaseModel): # Создаем отдельный класс SUser
 
 
     # info: List[Info] # Валидируем через другой класс List[Info] - список объектов Info
-
-
-
