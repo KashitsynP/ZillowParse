@@ -1,10 +1,9 @@
 from geopy.distance import distance
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, Request, Query
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-import httpx
 from pathlib import Path
-import json
+import requests
 
 from ZPapp.config import settings
 from ZPapp.postgresql import get_coord_store
@@ -28,29 +27,27 @@ async def home(request: Request):
 
 
 async def fetch_zillow_data(url, headers, querystring):
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url, headers=headers, params=querystring)
+    response = requests.get(url, headers=headers, params=querystring)
+    if response.status_code == 200:  # Проверяем, что запрос выполнен успешно (код статуса 200)
+        response_data = response.json()
+        return response_data
 
-        if response.status_code == 200:  # Проверяем, что запрос выполнен успешно (код статуса 200)
-            response_data = response.json()
-            return response_data
-
-@router.post("/fetch_and_process_data")
+@router.get("/fetch_and_process_data", response_class=HTMLResponse)
 async def fetch_and_process_data(
                                 request: Request,
-                                location: str = Form(),
-                                status_type: str = Form(),
-                                minPrice: int = Form(),
-                                maxPrice: int = Form(),
-                                bathsMin: int = Form(),
-                                bathsMax: int = Form(),
-                                bedsMin: int = Form(),
-                                bedsMax: int = Form(),
-                                sqftMin: int = Form(),
-                                sqftMax: int = Form(),
-                                distance_to_stores: int = Form(), 
+                                location:str = Query(Form(...)),
+                                status_type:str = Query(Form(...)),
+                                minPrice:int = Query(Form(...)),
+                                maxPrice:int = Query(Form(...)),
+                                bathsMin:int = Query(Form(...)),
+                                bathsMax:int = Query(Form(...)),
+                                bedsMin:int = Query(Form(...)),
+                                bedsMax:int = Query(Form(...)),
+                                sqftMin:int = Query(Form(...)),
+                                sqftMax:int = Query(Form(...)),
+                                distance_to_stores: int = Query(Form(...)), 
                                 ):
-   
+       
     url = "https://zillow-com1.p.rapidapi.com/propertyExtendedSearch"
     
     querystring = {
@@ -70,8 +67,10 @@ async def fetch_and_process_data(
         "X-RapidAPI-Key": settings.ZILLOW_API_KEY,
         "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com"
     }
-
+    # Для загрузки информации через API
     # response_text = await fetch_zillow_data(url, headers, querystring)
+
+    # Для локальной работы с моковыми данными
     from ZPapp.res import response_data
     response_text = response_data
 
@@ -118,9 +117,7 @@ async def fetch_and_process_data(
             res_dict['propertyType']:str = home['propertyType']
             res_dict['detailUrl']:str = home['detailUrl']
             res_dict['imgSrc']:str = home['imgSrc']
-
             list_res_dicts.append(res_dict)
 
-    response_data = {"message": "Data fetched and processed successfully", "data": list_res_dicts}
-    response_data=json.dumps(response_data)
-    return response_data
+    count_houses = len(list_res_dicts)
+    return templates.TemplateResponse("index.html", context={'request': request, 'data': list_res_dicts, 'count_houses': count_houses})
