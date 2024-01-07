@@ -4,7 +4,7 @@ import json
 from bs4 import BeautifulSoup
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
-from log import *
+from ZPapp.ZillowParse.log import *
 
 
 async def fetch_data(url):
@@ -79,16 +79,16 @@ async def main():
 
     addresses = [' '.join(store_tj_address[i]) for i in range(len(store_tj_address))]
 
-    await save_data('./DataStores/T_J_stores.json', 'w', '\n'.join(addresses))
+    await save_data('./ZPapp/DataStores/T_J_stores.json', 'w', '\n'.join(addresses))
 
     ##################################################################################################
 
-    tj_stores = await load_data('./DataStores/T_J_stores.json')
+    tj_stores = await load_data('./ZPapp/DataStores/T_J_stores.json')
     adresses_TJ = [store[:len(store) - 26] for store in tj_stores.split('\n')]
 
     T_J_store_coord = await geocode_address(adresses_TJ)
 
-    await save_data('./DataStores/T_J_stores_coord.json', 'w', json.dumps(T_J_store_coord))
+    await save_data('./ZPapp/DataStores/T_J_stores_coord.json', 'w', json.dumps(T_J_store_coord))
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -3,7 +3,7 @@ import asyncio
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable 
 import time
-from log import *
+from ZPapp.ZillowParse.log import *
 
 """Парсим сайт Whole Foods Market"""
 
@@ -31,7 +31,7 @@ async def WFM_findGeocode(address):
 async def main():
 
     # Достаём данные из файла 'WFM_stores.csv'
-    with open('./DataStores/WFM_stores.csv') as file:
+    with open('./ZPapp/DataStores/WFM_stores.csv') as file:
         data_WFM_stores = list(csv.reader(file))
         print('Data_WFM_stores cvs is loaded')
 
@@ -66,7 +66,7 @@ async def main():
         WFM_store_coord.append([WFM_stores[i], WFM_latitude[i], WFM_longitude[i]])
 
     # # # Сохраняем файлы с адресами и координатами
-    await save_data('./DataStores/WFM_stores_coord.json', 'w', WFM_store_coord)
+    await save_data('./ZPapp/DataStores/WFM_stores_coord.json', 'w', WFM_store_coord)
 
 if __name__ == "__main__":
     asyncio.run(main())
