@@ -81,8 +81,6 @@ async def main():
 
     await save_data('./ZPapp/DataStores/T_J_stores.json', 'w', '\n'.join(addresses))
 
-    ##################################################################################################
-
     tj_stores = await load_data('./ZPapp/DataStores/T_J_stores.json')
     adresses_TJ = [store[:len(store) - 26] for store in tj_stores.split('\n')]
 
