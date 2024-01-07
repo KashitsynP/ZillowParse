@@ -4,7 +4,7 @@ import json
 from bs4 import BeautifulSoup
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
-from log import *
+from ZPapp.ZillowParse.log import *
 
 
 async def fetch_data(url):

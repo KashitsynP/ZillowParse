@@ -124,13 +124,13 @@
       </div>
     </div>
     <br>
-    <div class="fs-3 fw-bolder">
+    <div class="fs-4 fw-bolder">
       Найдено {{ count_houses }} объектов недвижимости
     </div>   
     <br> 
     {% for item in data %}
       <ul class="list-unstyled">
-        <div class="fs-2 border rounded bg-success p-2 text-dark bg-opacity-25">
+        <div class="fs-4 border rounded bg-success p-2 text-dark bg-opacity-25">
           <li style="list-style-type: none">
             Адрес: {{ item.address }}
           </li>
@@ -162,7 +162,7 @@
           <ol>
             {% for tj in item.tj %}
               <li>
-                Trader Joe\`s: {{ tj }} миль
+                Trader Joe`s: {{ tj }} миль
               </li>
             {% endfor %}
           </ol>

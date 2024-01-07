@@ -3,7 +3,7 @@ import asyncio
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable 
 import time
-from log import *
+from ZPapp.ZillowParse.log import *
 
 """Парсим сайт Whole Foods Market"""
 
