@@ -1,4 +1,4 @@
-Приложение ZillowParse помогает находить недвижимость в США для покупки/аренды в заданном пользователем радиусе от магазинов здорового питания WholeFoodsMarket и Trader Joe's.
+Приложение ZillowParse помогает находить недвижимость в США (с сайта https://www.zillow.com/) для покупки/аренды в заданном пользователем радиусе от магазинов здорового питания WholeFoodsMarket и Trader Joe's.
 
 База данных содержит данные о магазинах (адрес и координаты), которые были спарсены. 
 Скрипты парсеров находятся в ZPapp/ZillowParse/parse_stores/
@@ -9,51 +9,51 @@
 
 
 **********************************************************
-*   Инструкция по развертыванию приложения ZillowParse   *
+    Инструкция по развертыванию приложения ZillowParse   
 **********************************************************
 
 1. Устанавливаем PostgreSQL
 2. Создаем рабочую директорию для проекта (например ZP)
 3. Находясь в рабочей директории клонируем репозитрий:
-git clone https://github.com/KashitsynP/ZillowParse.git
+* git clone https://github.com/KashitsynP/ZillowParse.git
 4. Далее:
-cd ZillowParse/
+* cd ZillowParse/
 5. Копируем дамп БД в директорию PostgreSQL:
-sudo cp zpapp_dump_db.sql /var/lib/postgresql/16/
+* sudo cp zpapp_dump_db.sql /var/lib/postgresql/16/
 * Ваша версия PostgreSQL может отличаться.
 6. Создаем пользователя и БД:
-sudo -i -u postgres
-psql
-create user zp with superuser password 'zp';
-create database zpapp;
-\q
+* sudo -i -u postgres
+* psql
+* create user zp with superuser password 'zp';
+* create database zpapp;
+* \q
 7. Восстанавливаем БД:
-psql -U postgres -d zpapp < /var/lib/postgresql/16/zpapp_dump_db.sql
+* psql -U postgres -d zpapp < /var/lib/postgresql/16/zpapp_dump_db.sql
 8. Загружаем виртуальное окружение:
-sudo apt install python3.10-venv
+* sudo apt install python3.10-venv
 9. ... и устанавливаем его:
-python3 -m venv venv
+* python3 -m venv venv
 10. Активируем виртуальное окружение:
-. venv/bin/activate
+* . venv/bin/activate
 11. Устанавливаем зависимости:
-pip install -r requirements.txt
+* pip install -r requirements.txt
 12. Открываем проект в IDE
 13. Создаем файл .env в корне проекта (ZillowParse) и заполняем:
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=zp
-DB_PASS=zp
-DB_NAME=ZPapp
-ZILLOW_API_KEY=73f04596b6msh78f0ebf1b9d023ap1cdeb4jsn966df12f9a9b
+* DB_HOST=localhost
+* DB_PORT=5432
+* DB_USER=zp
+* DB_PASS=zp
+* DB_NAME=ZPapp
+* ZILLOW_API_KEY=73f04596b6msh78f0ebf1b9d023ap1cdeb4jsn966df12f9a9b
 
 * Примечание:
-Данный API-KEY является тестовым и необходим для корректной работы приложения с моковыми данными.  
+* Данный API-KEY является тестовым и необходим для корректной работы приложения с моковыми данными.  
 
 14. Запускаем проект:
-uvicorn ZPapp.main:app --reload
+* uvicorn ZPapp.main:app --reload
 
 * Примечание:
-Основная логика приложения находится в ZPapp/ZillowParse/router.py.
+* Основная логика приложения находится в ZPapp/ZillowParse/router.py.
 
 В текущем виде приложение обрабатывает моковые данные, находящиеся в ZPapp/res.py. Для полноценной работы с реальными данными по API необходимо:
 1. Зарегистрироваться на сайте https://rapidapi.com/apimaker/api/zillow-com1/, получить API-KEY и внести его в .env (ZILLOW_API_KEY)
