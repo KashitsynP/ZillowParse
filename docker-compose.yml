@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: zpapp
+    command: ["uvicorn", "ZPapp.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    restart: always
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: zpapp_db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - /home/pavel/Рабочий стол/ZP/ZillowParse/sql/create_user.sql:/docker-entrypoint-initdb.d/create_user.sql
+      - /home/pavel/Рабочий стол/ZP/ZillowParse/sql/zpapp_dump_db.sql:/docker-entrypoint-initdb.d/zpapp_dump_db.sql
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:  # Определяем сеть
+    driver: bridge
+
+volumes:
+  postgres_data:

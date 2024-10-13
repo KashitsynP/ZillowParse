@@ -22,6 +22,9 @@ connection = create_connection()
 
 
 def get_coord(connection, query):
+    if connection is None:
+        print("Connection is None. Cannot execute query.")
+        return None
     cursor = connection.cursor()
     result = None
     try:

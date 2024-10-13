@@ -11,6 +11,3 @@ async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit
 
 class Base(DeclarativeBase): # Объявляем класс Base, наследуем от DeclarativeBase из sqlalchemy.orm
     pass
-
-
-
