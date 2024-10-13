@@ -6,51 +6,42 @@
 Логика работы приложения:
 * Пользователь вводит запрос на получение данных об объектах недвижимости с заданными параметрами и указывает максимальное расстояние до магазинов здорового питания. Посредством API находятся данные об объектах недвижимости и отображаются только те, которые удовлетворяют условию по расстоянию до магазинов.
 
+******************************************************************
+    Инструкция по развертыванию приложения ZillowParse в докере  
+******************************************************************
 
-**********************************************************
-    Инструкция по развертыванию приложения ZillowParse   
-**********************************************************
+1. Клонируем репозиторий в заранее подготовленную папку
+git clone https://github.com/KashitsynP/ZillowParse.git
 
-1. Устанавливаем PostgreSQL
-2. Создаем рабочую директорию для проекта (например ZP)
-3. Находясь в рабочей директории клонируем репозитрий:
-* git clone https://github.com/KashitsynP/ZillowParse.git
-4. Далее:
-* cd ZillowParse/
-5. Копируем дамп БД в директорию PostgreSQL:
-* sudo cp zpapp_dump_db.sql /var/lib/postgresql/16/
-* Ваша версия PostgreSQL может отличаться.
-6. Создаем пользователя и БД:
-* sudo -i -u postgres
-* psql
-* create user zp with superuser password 'zp';
-* create database zpapp;
-* \q
-7. Восстанавливаем БД:
-* psql -U postgres -d zpapp < /var/lib/postgresql/16/zpapp_dump_db.sql
-8. Загружаем виртуальное окружение:
-* sudo apt install python3.10-venv
-9. ... и устанавливаем его:
-* python3 -m venv venv
-10. Активируем виртуальное окружение:
-* . venv/bin/activate
-11. Устанавливаем зависимости:
-* pip install -r requirements.txt
-12. Открываем проект в IDE
-13. Создаем файл .env в корне проекта (ZillowParse) и заполняем:
-* DB_HOST=localhost
-* DB_PORT=5432
-* DB_USER=zp
-* DB_PASS=zp
-* DB_NAME=zpapp
-* ZILLOW_API_KEY=73f04596b6msh78f0ebf1b9d023ap1cdeb4jsn966df12f9a9b
+2. Переходим в корень проекта:
+cd ZillowParse/
+
+3. В корне проекта, на одном уровне с Dockerfile, создаем файл .env и заполняем его следующими данными:
+DB_HOST=db
+DB_PORT=5432
+DB_USER=zp
+DB_PASS=zp
+DB_NAME=zpapp
+ZILLOW_API_KEY=73f04596b6msh78f0ebf1b9d023ap1cdeb4jsn966df12f9a9b
 
 * Примечание:
-* Данный API-KEY является тестовым и необходим для корректной работы приложения с моковыми данными.  
+* Данный API-KEY является тестовым и необходим для корректной работы приложения с моковыми данными. 
 
-14. Запускаем проект:
-* uvicorn ZPapp.main:app --reload
+4. Собираем docker-compose:
+docker-compose up --build
 
+5. Открываем второй терминал и в нем вводим команды:
+   (Команды для восстановления БД)
+docker exec -it zpapp_db bash
+psql -U zp -d zpapp -f /docker-entrypoint-initdb.d/zpapp_dump_db.sql
+exit
+
+6. Далее необходимо перезагрузить docker-compose:
+docker-compose restart
+
+7. Переходим на http://localhost:8000/ и любуемся приложением :-)
+
+*******************************************************************
 * Примечание:
 * Основная логика приложения находится в ZPapp/ZillowParse/router.py.
 
