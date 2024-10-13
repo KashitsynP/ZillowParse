@@ -1,4 +1,4 @@
-![](screen/screen_1.png "Не тыкай")
+![](screen/screen_1.png "Сюда не тыкай")
 
 Приложение ZillowParse помогает находить недвижимость в США (с сайта https://www.zillow.com/) для покупки/аренды в заданном пользователем радиусе от магазинов здорового питания WholeFoodsMarket и Trader Joe's.
 
