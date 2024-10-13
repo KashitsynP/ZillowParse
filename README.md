@@ -11,33 +11,33 @@
 ******************************************************************
 
 1. Клонируем репозиторий в заранее подготовленную папку
-git clone https://github.com/KashitsynP/ZillowParse.git
+* git clone https://github.com/KashitsynP/ZillowParse.git
 
 2. Переходим в корень проекта:
-cd ZillowParse/
+* cd ZillowParse/
 
 3. В корне проекта, на одном уровне с Dockerfile, создаем файл .env и заполняем его следующими данными:
-DB_HOST=db
-DB_PORT=5432
-DB_USER=zp
-DB_PASS=zp
-DB_NAME=zpapp
-ZILLOW_API_KEY=73f04596b6msh78f0ebf1b9d023ap1cdeb4jsn966df12f9a9b
+* DB_HOST=db
+* DB_PORT=5432
+* DB_USER=zp
+* DB_PASS=zp
+* DB_NAME=zpapp
+* ZILLOW_API_KEY=73f04596b6msh78f0ebf1b9d023ap1cdeb4jsn966df12f9a9b
 
 * Примечание:
 * Данный API-KEY является тестовым и необходим для корректной работы приложения с моковыми данными. 
 
 4. Собираем docker-compose:
-docker-compose up --build
+* docker-compose up --build
 
 5. Открываем второй терминал и в нем вводим команды:
    (Команды для восстановления БД)
-docker exec -it zpapp_db bash
-psql -U zp -d zpapp -f /docker-entrypoint-initdb.d/zpapp_dump_db.sql
-exit
+* docker exec -it zpapp_db bash
+* psql -U zp -d zpapp -f /docker-entrypoint-initdb.d/zpapp_dump_db.sql
+* exit
 
 6. Далее необходимо перезагрузить docker-compose:
-docker-compose restart
+* docker-compose restart
 
 7. Переходим на http://localhost:8000/ и любуемся приложением :-)
 
